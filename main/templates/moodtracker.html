@@ -1,0 +1,56 @@
+{% include 'base.html' %}
+<link rel="stylesheet" href="static/assets/css/styles.css">
+<div class="container-fluid">
+    <div class="d-sm-flex justify-content-between align-items-center mb-4">
+        <h3 class="text-dark mb-0">Dagelijkse <strong>mood </strong>tracker</h3>
+    </div>
+    <p class="text-start" style="margin-top: -18px;"><strong>Met de mood tracker kun jij direct feedback krijgen op hoe jij je op dit moment voelt</strong></p>
+    <div class="row" style="text-align: center;">
+        <div class="col">
+            <h3 class="text-center text-dark mb-0" style="font-size: 25px;margin-top: 6px;">Hoe voel jij je vandaag?</h3>
+        </div>
+    </div>
+</div>
+<div class="container" style="margin-top: 33px;">
+    <form method="POST">
+        <div class="row">
+            <div class="col-md-4" style="text-align: center;">
+                <button class="btn" name="emotie" value="boos"><i class="fas fa-circle" style="font-size: 200px;color: var(--bs-red);"></i></button>
+                <h1>Boos</h1>
+            </div>
+            <div class="col-md-4" style="text-align: center;">
+                <button class="btn" name="emotie" value="gefrustreerd"><i class="fas fa-circle" style="font-size: 200px;color: var(--bs-orange);"></i></button>
+                <h1>Gefrustreerd</h1>
+            </div>
+            <div class="col-md-4" style="text-align: center;">
+                <button class="btn" name="emotie" value="verdrietig"><i class="fas fa-circle" style="font-size: 200px;color: var(--bs-purple);"></i></button>
+                <h1>Verdrietig</h1>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 59px;">
+            <div class="col-md-4" style="text-align: center;">
+                <button class="btn" name="emotie" value="kalm"><i class="fas fa-circle" style="font-size: 200px;color: var(--bs-blue);"></i></button>
+                <h1>Kalm</h1>
+            </div>
+            <div class="col-md-4" style="text-align: center;">
+                <button class="btn" name="emotie" value="blij"><i class="fas fa-circle" style="font-size: 200px;color: var(--bs-green);"></i></button>
+                <h1>Blij</h1>
+            </div>
+            <div class="col-md-4" style="text-align: center;">
+                <button class="btn" name="emotie" value="enthousiast"><i class="fas fa-circle" style="font-size: 200px;color: var(--bs-pink);"></i></button>
+                <h1>Enthousiast</h1>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<footer class="bg-white sticky-footer">
+    <div class="container my-auto">
+        <div class="text-center my-auto copyright"><span>Copyright © IoT sportstudies 2022</span></div>
+    </div>
+</footer>
+</div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+</div>
+</body>
+
+</html>

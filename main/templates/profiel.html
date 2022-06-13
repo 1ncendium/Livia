@@ -1,0 +1,234 @@
+{% include 'base.html' %}
+<div class="container-fluid">
+    <h3 class="text-dark mb-4">{{ _('Profiel') }}</h3>
+    <div class="row mb-3">
+        <div class="col-lg-4">
+            <div class="card mb-3">
+                <form method="post" enctype="multipart/form-data">
+                    <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="static/assets/img/uploads/{{profielfoto}}" id="output" width="160" height="160">
+                        <div class="mb-3">
+                            {{ fotoForm.profiel_foto(class="form-control") }}
+                            <div class="mb-3"><button class="btn btn-primary btn-sm" type="submit" id="profielfoto" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;background: rgb(255,102,37);border-color: rgb(255,102,37); margin-top: 5px; height: 30px; width: 90px;"><p>{{ _('Opslaan') }}</p></button></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="text-primary fw-bold m-0" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;">{{ _('Status') }}</h6>
+                </div>
+                <div class="card-body">
+                    <h4 class="small fw-bold">{{ _('Dagelijkse functionering') }}<span class="float-end">{{huber_cijfers.DF}}/10</span></h4>
+                    <div class="progress progress-sm mb-3">
+                        <div class="progress-bar bg-danger" aria-valuenow="{{huber_cijfers.DF}}" aria-valuemin="0" aria-valuemax="100" style="width: {{huber_cijfers.DF*10}}%;"><span class="visually-hidden">{{huber_cijfers.DF}}%</span></div>
+                    </div>
+
+                    <h4 class="small fw-bold">{{ _('Sociale participatie') }}<span class="float-end">{{huber_cijfers.SP}}/10</span></h4>
+                    <div class="progress progress-sm mb-3">
+                        <div class="progress-bar bg-warning" aria-valuenow="{{huber_cijfers.SP*10}}" aria-valuemin="0" aria-valuemax="100" style="width: {{huber_cijfers.SP*10}}%;"><span class="visually-hidden">{{huber_cijfers.SP}}%</span></div>
+                    </div>
+
+                    <h4 class="small fw-bold">{{ _('Kwaliteit van leven') }}<span class="float-end">{{huber_cijfers.KL}}/10</span></h4>
+                    <div class="progress progress-sm mb-3">
+                        <div class="progress-bar bg-primary" aria-valuenow="{{huber_cijfers.KL*10}}" aria-valuemin="0" aria-valuemax="100" style="width: {{huber_cijfers.KL*10}}%;"><span class="visually-hidden">{{huber_cijfers.KL*10}}%</span></div>
+                    </div>
+
+                    <h4 class="small fw-bold">{{ _('Zingeving') }}<span class="float-end">{{huber_cijfers.ZG}}/10</span></h4>
+                    <div class="progress progress-sm mb-3">
+                        <div class="progress-bar bg-info" aria-valuenow="{{huber_cijfers.ZG*10}}" aria-valuemin="0" aria-valuemax="100" style="width: {{huber_cijfers.ZG*10}}%;"><span class="visually-hidden">{{huber_cijfers.ZG*10}}%</span></div>
+                    </div>
+
+                    <h4 class="small fw-bold">{{ _('Mentale welbevinding') }}<span class="float-end">{{huber_cijfers.MW}}/10</span></h4>
+                    <div class="progress progress-sm mb-3">
+                        <div class="progress-bar bg-success" aria-valuenow="{{huber_cijfers.MW*10}}" aria-valuemin="0" aria-valuemax="100" style="width: {{huber_cijfers.MW*10}}%;"><span class="visually-hidden">{{huber_cijfers.MW*10}}%</span></div>
+                    </div>
+
+                    <h4 class="small fw-bold">{{ _('Lichaamsfunctie') }}<span class="float-end">{{huber_cijfers.LF}}/10</span></h4>
+                    <div class="progress progress-sm mb-3">
+                        <div class="progress-bar bg-success" aria-valuenow="{{huber_cijfers.LF*10}}" aria-valuemin="0" aria-valuemax="100" style="width: {{huber_cijfers.LF*10}}%;"><span class="visually-hidden">{{huber_cijfers.LF*10}}%</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="row mb-3 d-none">
+                <div class="col">
+                    <div class="card textwhite bg-primary text-white shadow">
+                        <div class="card-body">
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <p class="m-0">Peformance</p>
+                                    <p class="m-0"><strong>65.2%</strong></p>
+                                </div>
+                                <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
+                            </div>
+                            <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card textwhite bg-success text-white shadow">
+                        <div class="card-body">
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <p class="m-0">Peformance</p>
+                                    <p class="m-0"><strong>65.2%</strong></p>
+                                </div>
+                                <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
+                            </div>
+                            <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="card shadow mb-3">
+                        <div class="card-header py-3">
+                            <p class="text-primary m-0 fw-bold" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;">{{ _('Info') }}</p>
+                        </div>
+                        <div class="card-body">
+                            <form id="naam-gegevens" method="post" name="naam-gegevens">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="mb-3"><label class="form-label" for="username"><strong>{{ _('Gebruikersnaam') }}</strong></label>{{ naamGegevensForm.gebruikersnaam(class="form-control", placeholder=gebruikersnaam) }}</div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="mb-3"><label class="form-label" for="email"><strong>{{ _('Email') }}</strong></label>{{ naamGegevensForm.email(class="form-control", placeholder=email) }}</div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="mb-3"><label class="form-label" for="first_name"><strong>{{ _('Voornaam') }}</strong></label>{{ naamGegevensForm.voornaam(class="form-control", placeholder=voornaam) }}</div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="mb-3"><label class="form-label" for="last_name"><strong>{{ _('Achternaam') }}</strong><br></label>{{ naamGegevensForm.achternaam(class="form-control" , placeholder=achternaam) }}</div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="mb-3"><label class="form-label" for="first_name"><strong>{{ _('Telefoon') }}</strong></label>{{ naamGegevensForm.telefoon(class="form-control", placeholder=telefoon)}}</div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <button class="btn btn-primary btn-sm" type="submit" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;background: rgb(255,102,37);border-color: rgb(255,102,37); width: 90px;">{{ _('Opslaan') }}</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card shadow">
+                        <div class="card-header py-3">
+                            <p class="text-primary m-0 fw-bold" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;">{{ _('Contact') }}</p>
+                        </div>
+                        <div class="card-body">
+                            <form id="adres-gegevens" method="post">
+                                <div class="mb-3"><label class="form-label" for="address"><strong>{{ _('Adres') }}</strong></label>{{ adresGegevensForm.adres(class="form-control", placeholder=adres) }}</div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="mb-3"><label class="form-label" for="city"><strong>{{ _('Stad') }}</strong></label>{{ adresGegevensForm.stad(class="form-control", placeholder=stad) }}</div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="mb-3"><label class="form-label" for="country"><strong>{{ _('Land') }}</strong></label>{{ adresGegevensForm.land(class="form-control", placeholder=land) }}</div>
+                                    </div>
+                                </div>
+                                <div class="mb-3"><button class="btn btn-primary btn-sm" type="submit" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;background: rgb(255,102,37);border-color: rgb(255,102,37); width: 90px;">{{ _('Opslaan') }}</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card shadow" style="margin-top: 20px;">
+        <div class="card-header py-3">
+            <p class="text-primary m-0 fw-bold" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;">{{ _('Aantal vragen in vragenlijst aanpassen') }}</p>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                <div class="mb-3"><label class="form-label"><strong>{{ _('Aantal vragen in dagelijkse vragenlijst (Max 50, min 10)') }}</strong></label><br>{{ aantalVragenForm.aantal(placeholder=a_vragen_lijst) }}</div>
+                <div class="mb-3"><button class="btn btn-primary btn-sm" type="submit" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;background: rgb(255,102,37);border-color: rgb(255,102,37); width: 90px;">{{ _('Opslaan') }}</button></div>
+            </form>
+        </div>
+    </div>
+    <div class="card shadow" style="margin-top: 20px;">
+        <div class="card-header py-3">
+            <p class="text-primary m-0 fw-bold" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;">{{ _('Code van docent') }}</p>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                <div class="mb-3"><label class="form-label"><strong>{{ _('Vul hier de code in van je docent om toegang te krijgen tot zijn of haar contactgegevens') }}</strong></label><br><input placeholder="#ABCEDFG"></input>
+                </div>
+                <div class="mb-3"><button class="btn btn-primary btn-sm" type="submit" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;background: rgb(255,102,37);border-color: rgb(255,102,37); width: 90px;">{{ _('Opslaan') }}</button></div>
+            </form>
+        </div>
+    </div>
+    <div class="card shadow" style="margin-top: 20px;">
+        <div class="card-header py-3">
+            <p class="text-primary m-0 fw-bold" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;">{{ _('Kies zelf categorieën voor de vragenlijsten') }}</p>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                <div class="mb-3"><label class="form-label"><strong>{{ _('Hier kun je zelf kiezen welke categorieën de meeste prioriteit hebben. Deze worden opgeslagen en verwerkt in jouw dagelijkse vragenlijsten.') }}</strong></label>
+                    <br> {{ aangepasteCategorien.categorie_1.label }} {{ aangepasteCategorien.categorie_1 }} <br>
+                    <br> {{ aangepasteCategorien.categorie_2.label }} {{ aangepasteCategorien.categorie_2 }} <br>
+                    <br> {{ aangepasteCategorien.categorie_3.label }} {{ aangepasteCategorien.categorie_3 }} <br>
+                </div>
+                <div class="mb-3"><button class="btn btn-primary btn-sm" type="submit" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;background: rgb(255,102,37);border-color: rgb(255,102,37); width: 90px;">{{ _('Opslaan') }}</button></div>
+            </form>
+        </div>
+    </div>
+    <div class="card shadow mb-3" style="margin-top: 16px;">
+        <div class="card-header py-3">
+            <p class="text-primary m-0 fw-bold" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;">{{ _('Wachtwoord') }}</p>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3"><label class="form-label"><strong>{{ _('Huidig wachtwoord') }}</strong></label>{{nieuwWachtwoordForm.huidig_wachtwoord(class="form-control form-control-user")}}</div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3"><label class="form-label"><strong>{{ _('Nieuw wachtwoord') }}</strong><br></label>{{nieuwWachtwoordForm.nieuw_wachtwoord(class="form-control form-control-user")}}</div>
+                    </div>
+                </div>
+                <div class="mb-3"><button class="btn btn-primary btn-sm" type="submit" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;background: rgb(255,102,37);border-color: rgb(255,102,37); width: 90px;">{{ _('Opslaan') }}</button></div>
+            </form>
+        </div>
+    </div>
+    <div class="card shadow mb-3" style="margin-top: 16px;">
+        <div class="card-header py-3">
+            <p class="text-primary m-0 fw-bold" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;">{{ _('Account verwijderen') }}</p>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3"><label class="form-label"><strong>{{ _('Wachtwoord') }}</strong><br></label>{{accountVerwijderenForm.confirm_wachtwoord(class="form-control form-control-user")}}</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col"><button class="btn btn-primary btn-sm" type="submit" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;background: rgb(255,0,0);border-color: rgb(255,0,0);">{{ _('Account verwijderen') }}</button></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer class="bg-white sticky-footer" style="background: rgba(255,0,0,0);">
+    <div class="container my-auto">
+        <div class="text-center my-auto copyright"><span>Copyright © IoT sportstudies 2022</span></div>
+    </div>
+</footer>
+</div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+</div>
+</script>
+</body>
+
+</html>
+<script src="static/assets/js/Taal_Profiel.js"></script>

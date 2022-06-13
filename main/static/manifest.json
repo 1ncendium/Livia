@@ -1,0 +1,7 @@
+{
+    "name": "Livia",
+    "short_name": "Livia",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "orentation": "portrait-primary"
+}

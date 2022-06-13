@@ -1,0 +1,152 @@
+<!DOCTYPE html >
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Livia</title>
+    <meta name="description" content="Voor studenten">
+    <meta name="apple-mobile-web-app-capable" content="yes"></meta>
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="theme-color" content="#fff">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="msapplication-tap-highlight" content="no">
+    <link rel="stylesheet" href="static/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+    <link rel="stylesheet" href="static/assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="static/assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="static/assets/fonts/line-awesome.min.css">
+    <link rel="stylesheet" href="static/assets/fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.4.8/swiper-bundle.min.css">
+    <link rel="stylesheet" href="static/assets/css/Simple-Slider.css">
+    <link rel="stylesheet" href="static/assets/css/x-dropdown.css">
+    <link rel="manifest" href="static/site.webmanifest">
+</head>
+
+<body id="page-top">
+    {% if current_user.is_authenticated %}
+    <div id="wrapper">
+        {% else %}
+        <div>
+            {% endif %} {% if current_user.is_authenticated %}
+            <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0 toggled" style="background: rgb(225,121,77);--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;">
+                <div class="container-fluid d-flex flex-column p-0">
+                    <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+                        <div class="sidebar-brand-icon rotate-n-15"><i class="la la-share-alt"></i></div>
+                        <div class="sidebar-brand-text mx-3"><span>Livia</span></div>
+                    </a>
+                    <hr class="sidebar-divider my-0">
+                    <ul class="navbar-nav text-light" id="accordionSidebar">
+                        <li class="nav-item"><a class="nav-link" href="dashboard"><i class="fas fa-tachometer-alt"></i><span>{{ _('Dashboard') }}</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="profiel"><i class="fas fa-user"></i><span>{{ _('Profiel') }}</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="privacy"><i class="fas fa-user-lock"></i><span>{{ _('Privacy') }}</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="vragenlijst"><i class="fas fa-question"></i><span>{{ _('Vragenlijst') }}</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="moodtracker"><i class="fa fa-smile-o"></i><span>{{ _('Mood tracker') }}</span></a></li>
+                        {% if current_user.is_nieuw() %}
+                        <li class="nav-item"><a class="nav-link" href="intake"><i class="fas fa-question"></i><span>{{ _('Intake') }}</span></a></li>
+                        {% endif %}
+                        {% if current_user.is_docent() %}
+                        <li class="nav-item"><a class="nav-link" href="docent"><i class="fas fa-user"></i><span>{{ _('Docent') }}</span></a></li>
+                        {% endif %}
+                        {% if current_user.is_admin() %}
+                        <li class="nav-item"><a class="nav-link" href="intake"><i class="fas fa-question"></i><span>{{ _('Intake') }}</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="docent"><i class="fas fa-user"></i><span>{{ _('Docent') }}</span></a></li>
+                        {% endif %}
+                    </ul>
+                    <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+                </div>
+            </nav>
+            {% endif %}
+            <div class="d-flex flex-column" id="content-wrapper" style="background: rgba(248,249,252,0);">
+                <div id="content">
+                    <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                        <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;"><i class="fas fa-bars" style="border-color: rgb(255,102,37);color: rgb(255,102,37);"></i></button>
+                            <ul class="navbar-nav flex-nowrap ms-auto">
+                                <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><i class="fas fa-search"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-end p-3 animated--grow-in" aria-labelledby="searchDropdown">
+                                        <form class="me-auto navbar-search w-100">
+                                            <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
+                                                <div class="input-group-append"><button class="btn btn-primary py-0" type="button" style="background: rgb(255,102,37);border-color: rgba(255,255,255,0);"><i class="fas fa-search"></i></button></div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown no-arrow mx-1">
+                                    <div class="nav-item dropdown no-arrow">
+                                        <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"></span><i class="fas fa-globe"></i></a>
+                                        <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
+                                            <h6 class="dropdown-header">Languages</h6>
+                                            <form action="setcookie" method="POST">
+                                                <div class="me-3">
+                                                    <button name="taal" value="en" type="submit"><img src="static/assets/img/English.png" width="30px">English</button>
+                                                </div>
+                                            </form>
+                                            <form action="setcookie" method="POST">
+                                                <div class="me-3">
+                                                    <button name="taal" type="submit" value="nl"><img src="static/assets/img/Dutch.png" width="30px">Nederlands</input>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </li>
+                                {% if current_user.is_authenticated %}
+                                <li class="nav-item dropdown no-arrow mx-1">
+                                    <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="badge bg-danger badge-counter">1</span><i class="fas fa-bell fa-fw"></i></a>
+                                        <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
+                                            <h6 class="dropdown-header">alerts center</h6>
+                                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                                <div class="me-3">
+                                                    <div class="bg-primary icon-circle"><i class="fas fa-file-alt text-white"></i></div>
+                                                </div>
+                                                <div><span class="small text-gray-500">December 12, 2019</span>
+                                                    <p>A new monthly report is ready to download!</p>
+                                                </div>
+                                            </a><a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown no-arrow mx-1">
+                                    <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="badge bg-danger badge-counter">1</span><i class="fas fa-envelope fa-fw"></i></a>
+                                        <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
+                                            <h6 class="dropdown-header">alerts center</h6>
+                                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                                <div class="dropdown-list-image me-3"><img class="rounded-circle" src="avatars/avatar4.jpeg">
+                                                    <div class="bg-success status-indicator"></div>
+                                                    <div class="fw-bold">
+                                                        <div class="text-truncate"><span>I have the photos that you ordered last month!</span></div>
+                                                        <p class="small text-gray-500 mb-0">Jae Chun - 1d</p>
+                                                    </div>
+                                            </a><a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                                            </div>
+                                        </div>
+                                        <div class="shadow dropdown-list dropdown-menu dropdown-menu-end" aria-labelledby="alertsDropdown"></div>
+                                </li>
+                                <div class="d-none d-sm-block topbar-divider"></div>
+                                <li class="nav-item dropdown no-arrow">
+                                    <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="profiel"><span class="d-none d-lg-inline me-2 text-gray-600 small">{{current_user.gebruikersnaam}}</span><img class="border rounded-circle img-profile" src="static/assets/img/uploads/{{profielfoto}}"></a>
+                                        <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="/profiel"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>{{ _('Profiel') }}&nbsp;</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="{{url_for('logout')}}"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>{{ _('Uitloggen') }}&nbsp;</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                {% endif %}
+                            </ul>
+                            </div>
+                    </nav>
+                    {% with messages = get_flashed_messages() %} {% if messages %}
+                    <ul class=flashes>
+                        {% for message in messages %}
+                        <div class="alert alert-primary" role="alert">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    </ul>
+                    {% endif %} {% endwith %}
+                    <script src="static/assets/bootstrap/js/bootstrap.min.js"></script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.4.8/swiper-bundle.min.js"></script>
+                    <script src="static/assets/js/Simple-Slider.js"></script>
+                    <script src="static/assets/js/theme.js"></script>
+                    <script src="static/assets/js/Taal_Base.js"></script>

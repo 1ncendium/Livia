@@ -1,0 +1,171 @@
+{% include 'base.html' %}
+<div class="container-fluid">
+    <div class="d-sm-flex justify-content-between align-items-center mb-4">
+        <h3 class="text-dark mb-0">Dashboard</h3>
+        {% if current_user.is_admin() %}
+        <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="getData"><i class="fas fa-download fa-sm text-white-50"></i> Haal gegevens op uit database</a> {% endif %}
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-xl-3 mb-4">
+            <div class="card shadow border-start-primary py-2">
+                <div class="card-body">
+                    <div class="row align-items-center no-gutters">
+                        <div class="col me-2">
+                            <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span>{{ _('datum') }}</span></div>
+                            <div class="text-dark fw-bold h5 mb-0"><span>{{ vandaag }}</span></div>
+                        </div>
+                        <div class="col-auto"><i class="fas fa-calendar fa-2x text-gray-300"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3 mb-4">
+            <div class="card shadow border-start-success py-2">
+                <div class="card-body">
+                    <div class="row align-items-center no-gutters">
+                        <div class="col me-2">
+                            <div class="text-uppercase text-success fw-bold text-xs mb-1"><span>{{ _('temperatuur kamer') }}</span></div>
+                            <div class="text-dark fw-bold h5 mb-0"><span>22&nbsp;°C&nbsp;</span></div>
+                        </div>
+                        <div class="col-auto"><i class="fas fa-temperature-low fa-2x text-gray-300"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3 mb-4">
+            <div class="card shadow border-start-info py-2">
+                <div class="card-body">
+                    <div class="row align-items-center no-gutters">
+                        <div class="col me-2">
+                            <div class="text-uppercase text-success fw-bold text-xs mb-1"><span style="color: var(--bs-blue);">{{ _('licht kamer') }}</span></div>
+                            <div class="text-dark fw-bold h5 mb-0"><span>37 Lumen</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3 mb-4">
+            <div class="card shadow border-start-warning py-2">
+                <div class="card-body">
+                    <div class="row align-items-center no-gutters">
+                        <div class="col me-2">
+                            <div class="text-uppercase text-warning fw-bold text-xs mb-1"><span>{{ _('geluid kamer') }}</span></div>
+                            <div class="text-dark fw-bold h5 mb-0"><span>18 dB</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-5 col-xl-4">
+            <div class="card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary fw-bold m-0" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;">{{ _('Huber') }}</h6>
+                </div>
+                <div>
+                    <div><img src="static/assets/img/graphs/{{ graph_naam }}" class="img-fluid" style="width: auto; height: auto;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-7 col-xl-8">
+            <div class="card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary fw-bold m-0" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;">{{ _('Progressie vitaliteit') }}</h6>
+                </div>
+                <div class="card-body">
+                    {% if progressie_naam != None %}
+                    <div class="card-body"><img src="static/assets/img/graphs/{{ progressie_naam }}" class="img-fluid" style="width: auto; height: auto;"></div>
+                    {% else %}
+                    <div class="card-body">
+                        <h2 style="text-align: center;">{{ _('Progressie kan pas na 5 keer invullen van de vragenlijst worden gezien') }}</h2>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary fw-bold m-0" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;">{{ _('Eigen vragen')}}</h6>
+                    <div class="dropdown no-arrow"><button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button"><i class="fas fa-ellipsis-v text-gray-400"></i></button>
+                    </div>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% if eigenvragen_van_user|length == 0 %}
+                    <li class="list-group-item">
+                        <div class="row align-items-center no-gutters">
+                            <div class="col me-2">
+                                <h6 class="mb-0"><strong>{{ _('nog geen vragen') }}</strong></h6>
+                            </div>
+                        </div>
+                    </li>
+                    {% else %} {% for i in eigenvragen_van_user %}
+                    <li class="list-group-item">
+                        <div class="row align-items-center no-gutters">
+                            <div class="col me-2">
+                                <h6 class="mb-0"><strong>{{ i.vraag }}</strong></h6>
+                            </div>
+                            <div class="col-auto" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;">
+                                <form method="POST">
+                                    <button class="btn" name="delete_question" value="{{i.id}}"><i class="far fa-trash-alt text-primary"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %} {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <form method="POST">
+        <div class="row">
+            <div class="col">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="text-primary fw-bold m-0" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;">{{ _('Voeg vragen toe aan je vragenlijst') }}</h6>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div class="row align-items-center no-gutters">
+                                <label class="eigenvraag" style="margin-top: 10px;">{{ _('Vraag') }}:</label>
+                                <div class="col">{{ Eigenvraagform.vraag(class="form-control") }}</div>
+                            </div>
+                            <div class="row align-items-center no-gutters">
+                                <label class="eigenvraag">{{ _('Categorie') }}:</label>
+                                <div class="col">{{ Eigenvraagform.categorie }}</div>
+                            </div>
+                            <div class="row align-items-center no-gutters">
+                                <label>{{ _('Type vraag') }}:</label>
+                                <div class="col">{{ Eigenvraagform.type_vraag }}</div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="mb-3"><button class="btn btn-primary btn-sm" type="submit" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;background: rgb(255,102,37);border-color: rgb(255,102,37);">{{ _('Opslaan') }}</button></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<footer class="bg-white sticky-footer">
+    <div class="container my-auto">
+        <div class="text-center my-auto copyright"><span>Copyright © Livia 2022</span></div>
+    </div>
+</footer>
+</div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+</div>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/js/chart.min.js"></script>
+<script src="assets/js/bs-init.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.4.8/swiper-bundle.min.js"></script>
+<script src="assets/js/Simple-Slider.js"></script>
+<script src="assets/js/theme.js"></script>
+</body>
+
+</html>

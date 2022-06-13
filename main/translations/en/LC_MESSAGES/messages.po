@@ -1,0 +1,403 @@
+# English translations for PROJECT.
+# Copyright (C) 2022 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2022-06-02 17:30+0200\n"
+"PO-Revision-Date: 2022-06-02 17:31+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.10.1\n"
+
+#: main/templates/account_verwijderd.html:3
+msgid "Account Verwijderd"
+msgstr "Remove account"
+
+#: main/templates/account_verwijderd.html:9
+msgid "Jammer"
+msgstr "We regret to see you leave"
+
+#: main/templates/account_verwijderd.html:17
+msgid "Gegevens"
+msgstr "Data"
+
+#: main/templates/account_verwijderd.html:18
+msgid "Waarom"
+msgstr "Why"
+
+#: main/templates/base.html:42
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: main/templates/base.html:43 main/templates/base.html:121
+#: main/templates/profiel.html:3
+msgid "Profiel"
+msgstr "Profile"
+
+#: main/templates/base.html:44
+msgid "Privacy"
+msgstr "Privacy"
+
+#: main/templates/base.html:45
+msgid "Vragenlijst"
+msgstr "Questionnaire"
+
+#: main/templates/base.html:47
+msgid "Intake"
+msgstr "Intake"
+
+#: main/templates/base.html:123
+msgid "Uitloggen"
+msgstr "Log out"
+
+#: main/templates/dashboard.html:14
+msgid "datum"
+msgstr "Date"
+
+#: main/templates/dashboard.html:27
+msgid "temperatuur kamer"
+msgstr "Room temperature"
+
+#: main/templates/dashboard.html:40
+msgid "licht kamer"
+msgstr "room illumination"
+
+#: main/templates/dashboard.html:52
+msgid "geluid kamer"
+msgstr "noice pollution"
+
+#: main/templates/dashboard.html:64
+msgid "Huber"
+msgstr "Huber"
+
+#: main/templates/dashboard.html:74
+msgid "Progressie vitaliteit"
+msgstr "Vitality progression"
+
+#: main/templates/dashboard.html:81
+msgid "Progressie kan pas na 5 keer invullen van de vragenlijst worden gezien"
+msgstr "You can see your progression when you answered the questionnaire 5 times"
+
+#: main/templates/dashboard.html:92
+msgid "Eigen vragen"
+msgstr "Personal questions"
+
+#: main/templates/dashboard.html:101
+msgid "nog geen vragen"
+msgstr "No questions yet"
+
+#: main/templates/dashboard.html:129
+msgid "Voeg vragen toe aan je vragenlijst"
+msgstr "Add questions to your questionnaire"
+
+#: main/templates/dashboard.html:134
+msgid "Vraag"
+msgstr "Question"
+
+#: main/templates/dashboard.html:138
+msgid "Categorie"
+msgstr "Category"
+
+#: main/templates/dashboard.html:142
+msgid "Type vraag"
+msgstr "Type of question"
+
+#: main/templates/dashboard.html:147 main/templates/profiel.html:11
+#: main/templates/profiel.html:114 main/templates/profiel.html:134
+#: main/templates/profiel.html:167
+msgid "Opslaan"
+msgstr "Save"
+
+#: main/templates/index.html:5
+msgid "Aan de slag met vitaliteit"
+msgstr "Get started with your vitality"
+
+#: main/templates/index.html:7
+msgid "Je kunt je vitaliteit op pijl houden"
+msgstr "You can keep your vitality on the right level"
+
+#: main/templates/index.html:7
+msgid "of verhogen door goed voor je lichaam te zorgen"
+msgstr "or increase it by taking care of your body"
+
+#: main/templates/index.html:7
+msgid "eet en drink gezond en beweeg voldoende"
+msgstr "eat, drink and exercise on a regular base"
+
+#: main/templates/index.html:7
+msgid "Jouw lichaam is dan fitter"
+msgstr "Your body will be fitter"
+
+#: main/templates/index.html:7
+msgid "en je hebt voldoende basisenergie"
+msgstr "and you will be fitter"
+
+#: main/templates/index.html:12 main/templates/login.html:6
+msgid "Inloggen"
+msgstr "Log in"
+
+#: main/templates/index.html:13 main/templates/register.html:7
+msgid "Registreren"
+msgstr "Register"
+
+#: main/templates/index.html:19
+msgid "Geen kleine lettertjes"
+msgstr "No fine print"
+
+#: main/templates/index.html:19
+msgid "Lees hier hoe wij met uw gegevens omgaan"
+msgstr "Read here about the way we handle your data"
+
+#: main/templates/login.html:8
+msgid "Welkom terug"
+msgstr "Welcome back"
+
+#: main/templates/login.html:18
+msgid "Wachtwoord vergeten"
+msgstr "Forgot password"
+
+#: main/templates/login.html:26
+msgid "Geen account"
+msgstr "No account"
+
+#: main/templates/login.html:27
+msgid "Registreer nu"
+msgstr "Register now"
+
+#: main/templates/privacy.html:15
+msgid "Uw gegevens worden niet gedeeld"
+msgstr "Your data will not be shared"
+
+#: main/templates/privacy.html:15
+msgid "De gegevens worden wel veilig opgeslagen in onze database. Deze"
+msgstr "The data will be stored savely on our database. This  "
+
+#: main/templates/privacy.html:15
+msgid "gegevens"
+msgstr "data"
+
+#: main/templates/privacy.html:15
+msgid "worden"
+msgstr "will be"
+
+#: main/templates/privacy.html:15
+msgid "verzameld"
+msgstr "collected"
+
+#: main/templates/privacy.html:15
+msgid "aan de hand van verzonden antwoorden uit onder andere"
+msgstr "on the basis of answers sent from, among others"
+
+#: main/templates/privacy.html:15
+msgid "vragenlijst"
+msgstr "the questionnaire"
+
+#: main/templates/privacy.html:15
+msgid "en"
+msgstr "and"
+
+#: main/templates/privacy.html:15
+msgid "sensormetingen"
+msgstr "sensorreadings"
+
+#: main/templates/privacy.html:16
+msgid "Met deze gegevens kunnen wij uw"
+msgstr "Using this data we can map your"
+
+#: main/templates/privacy.html:16
+msgid "welzijn"
+msgstr "welbeing"
+
+#: main/templates/privacy.html:16
+msgid "in kaart brengen met als doel dit te"
+msgstr "with the aim of"
+
+#: main/templates/privacy.html:16
+msgid "verbeteren"
+msgstr "increasing your welbeing"
+
+#: main/templates/privacy.html:17
+msgid "Uw gegevens worden direct na het verzenden opgeslagen in onze"
+msgstr "Your data will immediately be stored on our"
+
+#: main/templates/privacy.html:17
+msgid "eigen database"
+msgstr "own database"
+
+#: main/templates/privacy.html:17
+msgid "Na het"
+msgstr "After you"
+
+#: main/templates/privacy.html:17 main/templates/privacy.html:18
+msgid "verwijderen"
+msgstr "remove"
+
+#: main/templates/privacy.html:17
+msgid "van uw account blijven de gegevens van de vragenlijsten in onze database"
+msgstr "your account, data gathered through the questionnaire will stay in our database"
+
+#: main/templates/privacy.html:18
+msgid "Uw persoonsgegevens"
+msgstr "We will"
+
+#: main/templates/privacy.html:18
+msgid "we wel volledig"
+msgstr "your personal data in its entirety"
+
+#: main/templates/privacy.html:19
+msgid "Dit doen we zodat we u niet meer aan deze gegevens kunnen koppelen"
+msgstr "This is done so we can not link it to any data gathered  in the questionnaire"
+
+#: main/templates/privacy.html:20
+msgid "Voor vragen of om uw gegevens in te zien verzoeken wij u te mailen naar"
+msgstr "If you have any questions, or wanna check the data we gathered, you can always send a mail to"
+
+#: main/templates/privacy.html:27
+msgid "Terug"
+msgstr "Return"
+
+#: main/templates/profiel.html:18
+msgid "Status"
+msgstr "Status"
+
+#: main/templates/profiel.html:21
+msgid "Dagelijkse functionering"
+msgstr "Daily functioning"
+
+#: main/templates/profiel.html:26
+msgid "Sociale participatie"
+msgstr "Social participation"
+
+#: main/templates/profiel.html:31
+msgid "Kwaliteit van leven"
+msgstr "Quality of life"
+
+#: main/templates/profiel.html:36
+msgid "Zingeving"
+msgstr "Welbeing"
+
+#: main/templates/profiel.html:41
+msgid "Mentale welbevinding"
+msgstr "Mental welbeing"
+
+#: main/templates/profiel.html:46
+msgid "Lichaamsfunctie"
+msgstr "Bodily functioning"
+
+#: main/templates/profiel.html:88
+msgid "Info"
+msgstr "Information"
+
+#: main/templates/profiel.html:94
+msgid "Gebruikersnaam"
+msgstr "Username"
+
+#: main/templates/profiel.html:97
+msgid "Email"
+msgstr "Email"
+
+#: main/templates/profiel.html:102
+msgid "Voornaam"
+msgstr "First name"
+
+#: main/templates/profiel.html:105
+msgid "Achternaam"
+msgstr "Last name"
+
+#: main/templates/profiel.html:110
+msgid "Telefoon"
+msgstr "Phone"
+
+#: main/templates/profiel.html:121
+msgid "Contact"
+msgstr "Contact"
+
+#: main/templates/profiel.html:125
+msgid "Adres"
+msgstr "Address"
+
+#: main/templates/profiel.html:128
+msgid "Stad"
+msgstr "City"
+
+#: main/templates/profiel.html:131
+msgid "Land"
+msgstr "Country"
+
+#: main/templates/profiel.html:144
+msgid "Aantal vragen in vragenlijst aanpassen"
+msgstr "Change the amount of questions in the questionnaire"
+
+#: main/templates/profiel.html:148
+msgid "Aantal vragen in dagelijkse vragenlijst (Max 50, min 10)"
+msgstr "Amount of questions in the daily questionnaire (Max 50, min 10)"
+
+#: main/templates/profiel.html:155 main/templates/profiel.html:180
+msgid "Wachtwoord"
+msgstr "Password"
+
+#: main/templates/profiel.html:161
+msgid "Huidig wachtwoord"
+msgstr "Current password"
+
+#: main/templates/profiel.html:164
+msgid "Nieuw wachtwoord"
+msgstr "New password"
+
+#: main/templates/profiel.html:173 main/templates/profiel.html:184
+msgid "Account verwijderen"
+msgstr "Remove account"
+
+#: main/templates/register.html:10
+msgid "Hier kunt u een nieuw account aanmaken"
+msgstr "Here you can create a new account"
+
+#: main/templates/register.html:21
+msgid "Man"
+msgstr "Male"
+
+#: main/templates/register.html:24
+msgid "Vrouw"
+msgstr "Female"
+
+#: main/templates/register.html:27
+msgid "Overig"
+msgstr "Remaining"
+
+#: main/templates/register.html:37
+msgid "Ik ga akkoord met de privacyverklaring"
+msgstr "I agree with the privacystatement"
+
+#: main/templates/vragen.html:7
+msgid "Dagelijkse vragenlijst"
+msgstr "Daily questionnaire"
+
+#: main/templates/vragen.html:9
+msgid "Hier staat elke dag een nieuwe vragenlijst klaar"
+msgstr "A new questionnaire will be available everyday"
+
+#: main/templates/vragen.html:17
+msgid "Antwoorden versturen"
+msgstr "Send answers"
+
+#: main/templates/vragen.html:22
+msgid "Je hebt de vragenlijst voor vandaag ingevuld"
+msgstr "You already finished the questionnaire today"
+
+#: main/templates/vragen.html:23
+msgid "Kom terug over"
+msgstr "Return in"
+
+#: main/templates/vragen.html:57
+msgid "Terug naar dashboard"
+msgstr "Return to dashboard"
+

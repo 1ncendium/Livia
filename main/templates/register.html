@@ -1,0 +1,51 @@
+{% include 'base.html' %}
+<div class="container-fluid">
+    <h3 class="text-dark mb-1">Livia</h3>
+</div>
+</div>
+<div class="p-5">
+    <h1 style="color: rgb(0,0,0);"><strong>{{ _('Registreren') }}</strong><img src="static/assets/img/klein_logo.png" style="width: 61px;margin-left: 34px;"></h1>
+    {% with messages = get_flashed_messages() %} {% if messages %} {% for msg in messages %} {{msg}} {% endfor %} {% endif %} {% endwith %}
+    <div class="text-center">
+        <h4 class="text-dark mb-4" style="text-align: left;">{{ _('Hier kunt u een nieuw account aanmaken') }}.</h4>
+    </div>
+    <form class="user" method="POST">
+        <div class="mb-3" style="--bs-primary: #ff8310;--bs-primary-rgb: 255,131,16;--bs-success: #ff8310;--bs-success-rgb: 255,131,16;">
+            {{form.gebruikersnaam(class="form-control form-control-user")}}</div>
+        <div class="mb-3" style="height: 46.1875px;">
+            <div class="mb-3" style="height: 46.1875px;">{{form.email(class="form-control form-control-user")}}</div>
+            <div class="mb-3" style="height: 35.1875px;">
+                <div class="container-sm" style="padding: 1px;">
+                    <div class="row row-cols-3">
+                        <div class="col-md-4">
+                            <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-1" name="geslacht" value="man"><label class="form-check-label" for="Man"><p>{{ _('Man') }}</p></label></div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-2" name="geslacht" value="vrouw"><label class="form-check-label" for="Vrouw"><p>{{ _('Vrouw') }}</p></label></div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-3" name="geslacht" value="overig"><label class="form-check-label" for="overig"><p>{{ _('Overig') }}</p></label></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3" style="height: 46.1875px;">{{form.telefoon(class="form-control form-control-user")}}</div>
+            <div class="mb-3" style="height: 46.1875px;">{{form.wachtwoord(class="form-control form-control-user")}}</div>
+            <div class="mb-3" style="height: 46.1875px;">{{form.pass_confirm(class="form-control form-control-user")}}</div>
+            <div class="mb-3"><label class="form-label" for="username" style="font-size: 15px;">
+                <input type="checkbox" required>&nbsp;</label><a class="small" href="privacy" style="color: rgb(0,0,0);"><strong>{{ _('Ik ga akkoord met de privacyverklaring') }}</strong></a>
+            </div>
+            {{form.submit(class="btn btn-primary d-block btn-user w-100")}}
+    </form>
+    <hr />
+    <div class="text-center"><label class="form-label" for="username" style="font-size: 15px;"><strong id="AlAccount">&nbsp;</strong></label>
+        <a class="small" href="login" style="color: rgb(0,0,0);"><br><strong id="Login"></strong></a>
+    </div>
+    </div>
+</div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+</div>
+</body>
+<script src="static/assets/js/Taal_Register.js"></script>
+
+</html>

@@ -1,0 +1,115 @@
+{% include 'base.html' %}
+<link rel="stylesheet" href="static/assets/css/styles.css">
+                <div class="container-fluid">
+                    <h3 class="text-dark mb-1"></h3>
+                </div>
+                <div class="p-5">
+                    <h1 style="color: rgb(0,0,0);"><strong id="Titel"></strong><img src="static/assets/img/klein_logo.png" style="width: 61px;margin-left: 34px;"></h1>
+                    <div class="text-center">
+                        <p class="text-dark mb-4" style="text-align: left;" id="Beschrijving"></p>
+                    </div>
+                    <div class="lang-box">
+                        <div class="me-3">
+                            <a href="#" onClick="reloadpage('#eng')"><img src="static/assets/img/English.png" width="30px"> English</a>
+                        </div>
+                        <div class="me-3">
+                            <a href="#" onClick="reloadpage('#nl')"><img src="static/assets/img/Dutch.png" width="30px"> Nederlands</a>
+                        </div>
+                    </div>                    
+                </div>
+                <form data-multi-step class="multi-step-form" method="POST">
+                    <div class="card" data-step>
+                      <h3 class="step-title"><strong id="Informatie"></strong></h3>
+                      <p class="infoslide" id="Informatie_beschrijving"></p>
+                      <p class="vrageninfo" id="Beoordeling"></p>
+                    <button type="button" class="vragenlijstbutton" data-next id="Volgende_Button1"></button>
+                    </div>
+                    {% for i in range(1,6) %}
+                    <div class="card" data-step>
+                        <h3 class="step-title" id="Vraag{{i}}_Header"></h3>
+                        <div class="slider">
+                            <p class="vragentitel" id="Vraag{{i}}"></p>
+                            <input type="range" min="1" max="10" value="10" name="lf{{i}}" oninput="rangeValue{{i}}.innerText = this.value">
+                            <p id="rangeValue{{i}}">10</p>
+                        </div>
+                        <button type="button" class="vragenlijstbutton" data-next id="Volgende_Button{{i+1}}"></button>
+                        <button type="button" class="vragenlijstbutton" data-previous id="Vorige_Button{{i}}"></button>
+                    </div>
+                    {% endfor %}
+                    {% for i in range(1,6) %}
+                    <div class="card" data-step>
+                        <h3 class="step-title" id="Vraag{{i+5}}_Header"></h3>
+                        <div class="slider">
+                            <p class="vragentitel" id="Vraag{{i+5}}"></p>
+                            <input type="range" min="1" max="10" value="10" name="mw{{i}}" oninput="rangeValue{{i+5}}.innerText = this.value">
+                            <p id="rangeValue{{i+5}}">10</p>
+                        </div>
+                        <button type="button" class="vragenlijstbutton" data-next id="Volgende_Button{{i+6}}"></button>
+                        <button type="button" class="vragenlijstbutton" data-previous id="Vorige_Button{{i+5}}"></button>
+                    </div>
+                    {% endfor %}
+                    {% for i in range(1,6) %}
+                    <div class="card" data-step>
+                        <h3 class="step-title" id="Vraag{{i+10}}_Header"></h3>
+                        <div class="slider">
+                            <p class="vragentitel" id="Vraag{{i+10}}"></p>
+                            <input type="range" min="1" max="10" value="10" name="zg{{i}}" oninput="rangeValue{{i+10}}.innerText = this.value">
+                            <p id="rangeValue{{i+10}}">10</p>
+                        </div>
+                        <button type="button" class="vragenlijstbutton" data-next id="Volgende_Button{{i+11}}"></button>
+                        <button type="button" class="vragenlijstbutton" data-previous id="Vorige_Button{{i+10}}"></button>
+                    </div>
+                    {% endfor %}
+                    {% for i in range(1,6) %}
+                    <div class="card" data-step>
+                        <h3 class="step-title" id="Vraag{{i+15}}_Header"></h3>
+                        <div class="slider">
+                            <p class="vragentitel" id="Vraag{{i+15}}"></p>
+                            <input type="range" min="1" max="10" value="10" name="kl{{i}}" oninput="rangeValue{{i+15}}.innerText = this.value">
+                            <p id="rangeValue{{i+15}}">10</p>
+                        </div>
+                        <button type="button" class="vragenlijstbutton" data-next id="Volgende_Button{{i+16}}"></button>
+                        <button type="button" class="vragenlijstbutton" data-previous id="Vorige_Button{{i+15}}"></button>
+                    </div>
+                    {% endfor %}
+                    {% for i in range(1,6) %}
+                    <div class="card" data-step>
+                        <h3 class="step-title" id="Vraag{{i+20}}_Header"></h3>
+                        <div class="slider">
+                            <p class="vragentitel" id="Vraag{{i+20}}"></p>
+                            <input type="range" min="1" max="10" value="10" name="md{{i}}" oninput="rangeValue{{i+20}}.innerText = this.value">
+                            <p id="rangeValue{{i+20}}">10</p>
+                        </div>
+                        <button type="button" class="vragenlijstbutton" data-next id="Volgende_Button{{i+21}}"></button>
+                        <button type="button" class="vragenlijstbutton" data-previous id="Vorige_Button{{i+20}}"></button>
+                    </div>
+                    {% endfor %}
+                    {% for i in range(1,5) %}
+                    <div class="card" data-step>
+                        <h3 class="step-title" id="Vraag{{i+25}}_Header"></h3>
+                        <div class="slider">
+                            <p class="vragentitel" id="Vraag{{i+25}}"></p>
+                            <input type="range" min="1" max="10" value="10" name="df{{i}}" oninput="rangeValue{{i+25}}.innerText = this.value">
+                            <p id="rangeValue{{i+25}}">10</p>
+                        </div>
+                        <button type="button" class="vragenlijstbutton" data-next id="Volgende_Button{{i+26}}"></button>
+                        <button type="button" class="vragenlijstbutton" data-previous id="Vorige_Button{{i+25}}"></button>
+                    </div>
+                    {% endfor %}
+                    <div class="card" data-step>
+                        <h3 class="step-title" id="Vraag30_Header"></h3>
+                        <div class="slider">
+                          <p class="vragentitel" id="Vraag30"></p>
+                          <input type="range" min="1" max="10" value="10" name="df5" oninput="rangeValue30.innerText = this.value">
+                          <p id="rangeValue30">10</p>
+                        </div>
+                        <button type="button" class="vragenlijstbutton" data-previous id="Vorige_Button30"></button>
+                        <button type="submit" class="vragenlijstbutton" data-submit id="Submit_Button"></button>
+                    </div>
+                  </form>
+            </div>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+    <script src="static/assets/js/script.js"></script>
+</html>
+<script src="static/assets/js/Taal_Intake.js"></script>
