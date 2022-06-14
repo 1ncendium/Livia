@@ -78,8 +78,14 @@ class AangepasteCategorien(FlaskForm):
 
 class DocentenForm(FlaskForm):
     code = StringField(validators=[Length(min=6, max=6)])
+    naam = StringField('naam', render_kw={"placeholder": "Naam"}, validators=[Length(max=32)])
     telnr = StringField('telnr', render_kw={"placeholder": "Telefoonnummer"}, validators=[Length(min=10, max=11)])
     email = StringField('Email:', render_kw={"placeholder": "E-Mail"}, validators=[Email()])
     submit = SubmitField('Submit')
+
+class HulpForm(FlaskForm):
+    code = StringField('docentcode', render_kw={"placeholder": "AAAAAA"}, validators=[Length(min=6, max=6)])
+    submit = SubmitField('Submit')
+    
 
 

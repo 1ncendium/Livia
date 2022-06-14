@@ -143,15 +143,28 @@ class Docenten(db.Model, UserMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     userid = db.Column(db.Integer)
+    naam = db.Column(db.String)
     code = db.Column(db.String(6))
     telnr = db.Column(db.String(11))
     email = db.Column(db.String)
 
-    def __init__(self, userid, code, telnr, email):
+    def __init__(self, naam, userid, code, telnr, email):
+        self.naam = naam
         self.userid = userid
         self.code = code
         self.telnr = telnr
         self.email = email
 
+class StudentHulp(db.Model):
 
+    __tablename__ = 'StudentHulp'
+
+    id = db.Column(db.Integer, primary_key=True)
+    userid = db.Column(db.Integer)
+    code = db.Column(db.String(6))
+
+    def __init__(self, userid, code):
+        self.userid = userid
+        self.code = code
+        
 db.create_all()

@@ -1,7 +1,6 @@
-from contextlib import redirect_stderr
 from main import app, db
-from main.models import User, Huber, EigenVragen, UserCategorien, UserMood, Docenten
-from main.forms import RegistrationForm, LoginForm, NaamGegevensForm, AdresGegevensForm, NieuwWachtwoordForm, AangepasteCategorien, AccountVerwijderenForm, FotoForm, EigenvraagForm, VragenLijstForm, AantalVragenForm, QuestionListForm, DocentenForm
+from main.models import User, Huber, EigenVragen, UserCategorien, UserMood, Docenten, StudentHulp
+from main.forms import RegistrationForm, LoginForm, NaamGegevensForm, AdresGegevensForm, NieuwWachtwoordForm, AangepasteCategorien, AccountVerwijderenForm, FotoForm, EigenvraagForm, VragenLijstForm, AantalVragenForm, QuestionListForm, DocentenForm, HulpForm
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import render_template, redirect, request, url_for, flash, session
 from flask_login import login_user, login_required, logout_user, current_user
@@ -13,10 +12,8 @@ from main.get_data import getData
 from flask.helpers import make_response
 from flask_babel import Babel
 from main.moodtracker import random_yoga_pose, save_mood
-from sqlalchemy import or_
 import string
 import random
-from main.userbeheer import manage
 
 babel = Babel(app)
 app.config['BABEL_TRANSLATION_DIRECTORIES'] = './translations'
@@ -142,6 +139,29 @@ def register():
             flash(e)
     return render_template('register.html', form=form)
 
+@app.route('/hulp', methods=['GET', 'POST'])
+@login_required
+def hulp():
+    docentenlijst = []
+    contactgegevens = []
+    form = HulpForm()
+    if request.method == 'POST':
+        docentcode = request.form.get('code')
+        print(docentcode)
+        if docentcode != None:
+            if db.session.query(StudentHulp.userid).filter_by(userid=current_user.get_id(),code=docentcode ).first() is not None:
+                return redirect(url_for('hulp')), flash('U heeft deze code al toegevoegd')
+            docentgegevens = StudentHulp(userid = current_user.get_id(), code = docentcode)
+            db.session.add(docentgegevens)
+            db.session.commit()
+            return redirect(url_for('hulp'))
+    docentcodes = StudentHulp.query.filter_by(userid=current_user.get_id()).all()
+    for x in docentcodes:
+        docentenlijst.append((x.code))
+    for x in docentenlijst:
+        contactgegevens.append(Docenten.query.filter_by(code=x).first())
+    return render_template('hulp.html', form=form, contactgegevens=contactgegevens)
+
 @app.route('/profiel', methods=['GET', 'POST'])
 @login_required
 def profiel():
@@ -152,6 +172,7 @@ def profiel():
         return redirect(url_for('intake'))
 
     huber_cijfers = Huber.query.filter_by(userid=current_user.get_id()).first()
+    DocentCodeForm = HulpForm()
     naamGegevensForm = NaamGegevensForm()
     adresGegevensForm = AdresGegevensForm()
     nieuwWachtwoordForm = NieuwWachtwoordForm()
@@ -263,7 +284,7 @@ def profiel():
                             adres=adres, stad=stad, land=land, telefoon=telefoon, accountVerwijderenForm=accountVerwijderenForm, 
                             naamGegevensForm=naamGegevensForm, adresGegevensForm=adresGegevensForm, nieuwWachtwoordForm=nieuwWachtwoordForm,
                             fotoForm=fotoForm, profielfoto=profielfoto, huber_cijfers=huber_cijfers, aantalVragenForm=aantalVragenForm, 
-                            a_vragen_lijst=a_vragen_lijst, aangepasteCategorien=aangepasteCategorien)
+                            a_vragen_lijst=a_vragen_lijst, aangepasteCategorien=aangepasteCategorien, DocentCodeForm=DocentCodeForm)
 
 @app.route('/dashboard', methods=['GET', 'POST'])
 @login_required
@@ -500,20 +521,27 @@ def getcookie():
 def docent():
     form = DocentenForm()
     userid = current_user.get_id()
+    if User.query.filter_by(id=current_user.get_id()).first().access not in [2, 3]:
+        return redirect(url_for('profiel')), flash('U kunt deze pagina niet bezoeken!')
     docentenInfo = Docenten.query.filter_by(userid=userid)
     adminInfo = Docenten.query.order_by(Docenten.id).all()
     profielfoto = User.query.filter_by(id=current_user.get_id()).first().profiel_foto
     if request.method == "POST":
-        print('True')
         try:
+            if db.session.query(Docenten.userid).filter_by(userid=current_user.get_id()).first() is not None:
+                return redirect(url_for('docent')), flash('U heeft al een code aangemaakt! verwijder deze eerst.')
             letters = string.ascii_uppercase
             resultstr = ''.join(random.choice(letters) for i in range(6))
             code = resultstr
+            if db.session.query(UserCategorien.code).filter_by(code=code).first() is not None:
+                return redirect(url_for('Docent')), flash('Er ging iets mis, probeer het opnieuw.')
+            naam = request.form.get('naam')
             telnr = request.form.get('telnr')
             email = request.form.get('email')
-            data = Docenten(telnr=telnr, code=code, userid=userid, email=email)
+            data = Docenten(telnr=telnr, naam=naam, code=code, userid=userid, email=email)
             db.session.add(data)
             db.session.commit()
+            return redirect(url_for('docent'))
         except Exception as e:
             print(e)
         return render_template('docent.html', form=form, docentenInfo=docentenInfo, profielfoto=profielfoto, adminInfo=adminInfo)
@@ -522,6 +550,8 @@ def docent():
 @app.route('/delete/<int:Docenten_id>/delete')
 @login_required
 def delete(Docenten_id):
+    if User.query.filter_by(id=current_user.get_id()).first().access not in [2, 3]:
+        return redirect(url_for('profiel')), flash('U kunt deze pagina niet bezoeken!')
     delete = Docenten.query.get_or_404(Docenten_id)
     db.session.delete(delete)
     db.session.commit()
@@ -565,28 +595,7 @@ def feedback():
         return render_template('feedback.html', emotie=emotie, oefening=yoga_oefening, profielfoto=profielfoto)
     else:
         return render_template('feedback.html', emotie=emotie, profielfoto=profielfoto)
-
-@app.route('/admin', methods=['GET', 'POST'])
-@login_required
-def admin():
-
-    user = User.query.filter_by(id=current_user.get_id()).first() 
-    if not user.is_admin():
-        return redirect(url_for('home'))
-
-    profielfoto = User.query.filter_by(id=current_user.get_id()).first().profiel_foto
-
-    if request.method == "POST":
-
-        manage(request.form)
-
-        return redirect(url_for('admin'))
-
-    all_users = User.query.filter(or_(User.access == 0, User.access == 1)).all()
-    all_docenten = User.query.filter_by(access=2).all()
-    all_admins = User.query.filter_by(access=3).all()
-
-    return render_template('admin.html', all_admins=all_admins, all_docenten=all_docenten, all_users=all_users, profielfoto=profielfoto)
+        
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0")
