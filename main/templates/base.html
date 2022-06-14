@@ -46,13 +46,12 @@
                         <li class="nav-item"><a class="nav-link" href="moodtracker"><i class="fa fa-smile-o"></i><span>{{ _('Mood tracker') }}</span></a></li>
                         {% if current_user.is_nieuw() %}
                         <li class="nav-item"><a class="nav-link" href="intake"><i class="fas fa-question"></i><span>{{ _('Intake') }}</span></a></li>
-                        {% endif %}
-                        {% if current_user.is_docent() %}
+                        {% endif %} {% if current_user.is_docent() %}
                         <li class="nav-item"><a class="nav-link" href="docent"><i class="fas fa-user"></i><span>{{ _('Docent') }}</span></a></li>
-                        {% endif %}
-                        {% if current_user.is_admin() %}
+                        {% endif %} {% if current_user.is_admin() %}
                         <li class="nav-item"><a class="nav-link" href="intake"><i class="fas fa-question"></i><span>{{ _('Intake') }}</span></a></li>
                         <li class="nav-item"><a class="nav-link" href="docent"><i class="fas fa-user"></i><span>{{ _('Docent') }}</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="admin"><i class="fas fa-pen-square"></i><span>{{ _('Admin') }}</span></a></li>
                         {% endif %}
                     </ul>
                     <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>

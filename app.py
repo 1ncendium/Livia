@@ -13,8 +13,10 @@ from main.get_data import getData
 from flask.helpers import make_response
 from flask_babel import Babel
 from main.moodtracker import random_yoga_pose, save_mood
+from sqlalchemy import or_
 import string
 import random
+from main.userbeheer import manage
 
 babel = Babel(app)
 app.config['BABEL_TRANSLATION_DIRECTORIES'] = './translations'
@@ -563,7 +565,28 @@ def feedback():
         return render_template('feedback.html', emotie=emotie, oefening=yoga_oefening, profielfoto=profielfoto)
     else:
         return render_template('feedback.html', emotie=emotie, profielfoto=profielfoto)
-        
+
+@app.route('/admin', methods=['GET', 'POST'])
+@login_required
+def admin():
+
+    user = User.query.filter_by(id=current_user.get_id()).first() 
+    if not user.is_admin():
+        return redirect(url_for('home'))
+
+    profielfoto = User.query.filter_by(id=current_user.get_id()).first().profiel_foto
+
+    if request.method == "POST":
+
+        manage(request.form)
+
+        return redirect(url_for('admin'))
+
+    all_users = User.query.filter(or_(User.access == 0, User.access == 1)).all()
+    all_docenten = User.query.filter_by(access=2).all()
+    all_admins = User.query.filter_by(access=3).all()
+
+    return render_template('admin.html', all_admins=all_admins, all_docenten=all_docenten, all_users=all_users, profielfoto=profielfoto)
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0")

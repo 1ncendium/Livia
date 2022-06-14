@@ -1,0 +1,152 @@
+{% include 'base.html' %}
+<div class="container-fluid">
+    <div class="d-sm-flex justify-content-between align-items-center mb-4">
+        <h3 class="text-dark mb-0">Admin</h3>
+    </div>
+    <p class="text-start" style="margin-top: -18px;"><strong>{{ _('Hier kan het toegangsniveau voor users beheert worden') }}</strong></p>
+</div>
+<div class="container" style="margin-top: 39px;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <p class="text-primary m-0 fw-bold" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;">{{ _('Studenten') }}</p>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>id</th>
+                                            <th>{{ _('Gebruikersnaam') }}</th>
+                                            <th>{{ _('Docent') }}</th>
+                                            <th>Admin</th>
+                                            <th>{{ _('Verwijder gebruiker') }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <form method="POST">
+                                            {% for i in all_users %}
+                                            <tr>
+                                                <td>{{ i.id }}</td>
+                                                <td>{{ i.gebruikersnaam }}</td>
+                                                <td><button class="btn" style="color: blue;" name="make_docent" value="{{i.id}}">{{ _('Maak docent') }}</button></td>
+                                                <td><button class="btn" style="color: red;" name="make_admin" value="{{i.id}}">{{ _('Maak admin') }}</button></td>
+                                                <td><button class="btn" class="verwijderbutton" name="delete_user" value="{{i.id}}"><i class="far fa-trash-alt" style="color: red; margin-right: 5px;"></i>{{ _('Verwijder gebruiker') }}</a></td>
+                                            {% endfor %}
+                                        </form>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <form>
+                        <div class="mb-3"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 20px;">
+        <div class="col-md-12">
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <p class="text-primary m-0 fw-bold" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;">{{ _('Docenten') }}</p>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>id</th>
+                                            <th>{{ _('Gebruikersnaam') }}</th>
+                                            <th>{{ _('Student') }}</th>
+                                            <th>Admin</th>
+                                            <th>{{ _('Verwijder gebruiker') }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <form method="POST">
+                                            {% for i in all_docenten %}
+                                            <tr>
+                                                <td>{{ i.id }}</td>
+                                                <td>{{ i.gebruikersnaam }}</td>
+                                                <td><button class="btn" style="color: orangered;;" name="make_student" value="{{i.id}}">{{ _('Maak student') }}</button></td>
+                                                <td><button class="btn" style="color: red;" name="make_admin" value="{{i.id}}">{{ _('Maak admin') }}</button></td>
+                                                <td><button class="btn" class="verwijderbutton" name="delete_user" value="{{i.id}}"><i class="far fa-trash-alt" style="color: red; margin-right: 5px;"></i>{{ _('Verwijder gebruiker') }}</a></td>
+                                            {% endfor %}
+                                        </form>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <form>
+                        <div class="mb-3"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 20px;">
+        <div class="col-md-12">
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <p class="text-primary m-0 fw-bold" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;">Admins</p>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>id</th>
+                                            <th>{{ _('Gebruikersnaam') }}</th>
+                                            <th>{{ _('Student') }}</th>
+                                            <th>{{ _('Docent') }}</th>
+                                            <th>{{ _('Verwijder gebruiker') }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <form method="POST">
+                                            {% for i in all_admins %}
+                                            <tr>
+                                                <td>{{ i.id }}</td>
+                                                <td>{{ i.gebruikersnaam }}</td>
+                                                <td><button class="btn" style="color: orangered;" name="make_student" value="{{i.id}}">{{ _('Maak student') }}</button></td>
+                                                <td><button class="btn" style="color: blue;" name="make_docent" value="{{i.id}}">{{ _('Maak docent') }}</button></td>
+                                                <td><button class="btn" class="verwijderbutton" name="delete_user" value="{{i.id}}"><i class="far fa-trash-alt" style="color: red; margin-right: 5px;"></i>{{ _('Verwijder gebruiker') }}</a></td>
+                                            {% endfor %}
+                                        </form>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <form>
+                        <div class="mb-3"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<footer class="bg-white sticky-footer">
+    <div class="container my-auto">
+        <div class="text-center my-auto copyright"><span>Copyright © IoT sportstudies 2022</span></div>
+    </div>
+</footer>
+</div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+</div>
+</body>
+
+</html>
