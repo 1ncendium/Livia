@@ -1,6 +1,6 @@
 from main import app, db
 from main.models import User, Huber, EigenVragen, UserCategorien, UserMood, Docenten, StudentHulp
-from main.forms import RegistrationForm, LoginForm, NaamGegevensForm, AdresGegevensForm, NieuwWachtwoordForm, AangepasteCategorien, AccountVerwijderenForm, FotoForm, EigenvraagForm, VragenLijstForm, AantalVragenForm, QuestionListForm, DocentenForm, HulpForm
+from main.forms import RegistrationForm, LoginForm, NaamGegevensForm, AdresGegevensForm, NieuwWachtwoordForm, AangepasteCategorien, AccountVerwijderenForm, FotoForm, EigenvraagForm, VragenLijstForm, AantalVragenForm, QuestionListForm, DocentenForm, HulpForm, RequestResetForm, ResetPasswordForm
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import render_template, redirect, request, url_for, flash, session
 from flask_login import login_user, login_required, logout_user, current_user
@@ -16,6 +16,7 @@ import string
 import random
 from sqlalchemy import or_
 from main.userbeheer import manage
+import smtplib 
 
 babel = Babel(app)
 app.config['BABEL_TRANSLATION_DIRECTORIES'] = './translations'
@@ -624,6 +625,61 @@ def admin():
     all_admins = User.query.filter_by(access=3).all()
 
     return render_template('admin.html', all_admins=all_admins, all_docenten=all_docenten, all_users=all_users, profielfoto=profielfoto)
+
+def send_reset_email(user):
+    
+    token = user.get_reset_token()
+    EMAIL_ADDRESS = 'projectsportstudies@outlook.com'
+    EMAIL_PASSWORD = 'Groep1G3'
+    recipient=user.email
+    print(recipient)
+    with smtplib.SMTP('smtp.office365.com', 587) as smtp:
+        smtp.ehlo()
+        smtp.starttls()
+        smtp.ehlo()
+        smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+        subject = 'Password Reset'
+        body = f'''Om je wachtwoord te reseten, klik op de volgende link: {url_for('reset_token', token=token, _external=True)}
+        TIP: Om je vitaliteit te verbeteren kan je beter niet in een tent wonen.'''
+        msg = f'Subject: {subject}\n\n{body}'
+        smtp.sendmail(EMAIL_ADDRESS, recipient, msg)
+
+@app.route('/reset_password', methods=['GET', 'POST'])
+def reset_request():
+    if current_user.is_authenticated:
+        return redirect(url_for('profiel'))  
+    form = RequestResetForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        send_reset_email(user)
+        flash('Er is een email verzonden')
+        return redirect(url_for('login'))
+    return render_template('reset_request.html', title='Reset Password', form=form)
+
+
+
+
+
+@app.route('/reset_password<token>', methods=['GET', 'POST'])
+def reset_token(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('profiel'))  
+    user = User.verify_reset_token(token)
+    if user is None:
+        flash('Ongeldige token', 'warning')
+        return redirect(url_for('reset_request'))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        password = request.form.get('password')
+        x = password_check(password)
+        if x['password_ok'] == False:
+            flash('Wachtwoord moet minaal 8 karakters lang zijn, 1 symbool, getal, hoofdletter en kleine letter bevatten')
+        else:
+            user.wachtwoord_hash = generate_password_hash(password)
+            db.session.commit()
+            flash('Wachtwoord geupdate')
+            return redirect(url_for('login'))
+    return render_template('reset_token.html', title='Reset Password', form=form)
 
 
 if __name__ == '__main__':

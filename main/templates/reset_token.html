@@ -1,0 +1,30 @@
+{% include 'base.html' %}
+<div class="container-fluid">
+    <h3 class="text-dark mb-1">Livia</h3>
+</div>
+<div class="p-5">
+    <h1 style="color: rgb(0,0,0);"><strong>{{ _('Wachtwoord reset') }}</strong><img src="static/assets/img/klein_logo.png" style="width: 61px;margin-left: 81px;"></h1>
+    <div class="text-center"></div>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="mb-3" style="--bs-primary: #ff8310;--bs-primary-rgb: 255,131,16;--bs-success: #ff8310;--bs-success-rgb: 255,131,16;">
+            {{ form.password(class="form-control form-control-user") }}
+        </div>
+        <div class="mb-3" style="--bs-primary: #ff8310;--bs-primary-rgb: 255,131,16;--bs-success: #ff8310;--bs-success-rgb: 255,131,16;">
+            {{ form.confirm_password(class="form-control form-control-user") }}
+        </div>
+        <div class="mb-3">
+            <div class="custom-control custom-checkbox small"></div>
+        </div>
+        {{ form.submit(class="btn btn-primary d-block btn-user w-100") }}
+    </form>
+    <div class="text-center"></div>
+    <hr />
+</div>
+</div>
+</div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+</div>
+</body>
+<script src="static/assets/js/Taal_Login.js"></script>
+
+</html>
