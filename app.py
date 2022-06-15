@@ -17,6 +17,9 @@ import random
 from sqlalchemy import or_
 from main.userbeheer import manage
 
+
+#Hallo
+
 babel = Babel(app)
 app.config['BABEL_TRANSLATION_DIRECTORIES'] = './translations'
 
