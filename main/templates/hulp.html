@@ -1,0 +1,104 @@
+{% include 'base.html' %}
+                    <div class="container-fluid">
+                    <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                        <h3 class="text-dark mb-0">{{ _('Hulp') }}</h3>
+                    </div>
+                    <p class="text-start" style="margin-top: -18px;"><strong>{{ _('Studeren is leuk en uitdagend, maar soms ook stressvol en spannend. Kom je er even niet alleen uit? Geen probleem.') }}&nbsp;</strong></p>
+                </div>
+                <div class="container text-start" style="margin-top: 39px;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card shadow">
+                                <div class="card-header py-3">
+                                    <p class="text-primary m-0 fw-bold" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;">{{ _('Hanze support') }}</p>
+                                </div>
+                                <div class="card-body">
+                                    <p class="text-start" style="margin-top: -18px;"><br><span style="color: rgb(0, 0, 0);">{{ _('Hanze Student Support helpt en ondersteunt jou om hiermee om te gaan. Praat met een studentendecaan of studentenpsycholoog, maak gebruik van voorzieningen en regelingen en doe mee aan een (online) cursus of groepscoaching.') }}</span><br><br></p>
+                                    <form>
+                                        <div class="mb-3"><a class="btn btn-primary btn-sm" role="button" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;background: rgb(255,102,37);border-color: rgb(255,102,37);width: 148.203px;height: 37px;" href="https://www.hanze.nl/nld/voorzieningen/voorzieningen/hanze-student-support">Naar Hanze Support</a></div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card shadow" style="margin-top: 20px;">
+                        <div class="card-header py-3">
+                            <p class="text-primary m-0 fw-bold" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;">{{ _('Code van docent') }}</p>
+                        </div>
+                        <div class="card-body">
+                            <form method="POST">
+                                <div class="mb-3"><label class="form-label"><strong>{{ _('Vul hier de code in van je docent om toegang te krijgen tot zijn of haar contactgegevens') }}</strong></label><br>{{form.code}}
+                                </div>
+                                <div class="mb-3"><button class="btn btn-primary btn-sm" type="submit" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;background: rgb(255,102,37);border-color: rgb(255,102,37); width: 90px;">{{ _('Opslaan') }}</button></div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" style="margin-top: 26px;">
+                            <div class="card shadow">
+                                <div class="card-header py-3">
+                                    <p class="text-primary m-0 fw-bold" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;">{{ _('Docent contactgegevens') }}</p>
+                                </div>
+                                <div class="card-body">
+                                    <form>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>{{ _('Docent') }}</th>
+                                                                <th>{{ _('Telefoonnummer') }}</th>
+                                                                <th>{{ _('E-mail') }}</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for i in contactgegevens %}
+                                                            <tr>
+                                                                <td>{{ i.naam  }}</td>
+                                                                <td>{{ i.telnr }}</td>
+                                                                <td>{{ i.email }}</td>
+                                                            </tr>
+                                                            {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3"></div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" style="margin-top: 26px;">
+                            <div class="card shadow">
+                                <div class="card-header py-3">
+                                    <p class="text-primary m-0 fw-bold" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;">Martijn's mail form</p>
+                                </div>
+                                <div class="card-body">
+                                    <form>
+                                        <div class="row">
+                                            <div class="col">
+                                                <form></form>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3"></div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright"><span>Copyright © IoT sportstudies 2022</span></div>
+                </div>
+            </footer>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+</body>
+
+</html>

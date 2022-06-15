@@ -16,13 +16,17 @@
                     <form method="POST">
                         <div class="row">
                             <div class="col">
+                                <div class="mb-3"><label class="form-label" for="telnr"><strong>Naam</strong></label><input class="form-control" type="text" id="naam" placeholder="Berend Botje" name="naam" value=""></div>
+                            </div>
+                            <div class="col">
                                 <div class="mb-3"><label class="form-label" for="telnr"><strong>Telefoonnummer</strong></label><input class="form-control" type="text" id="telnr" placeholder="0612345678" name="telnr" value=""></div>
                             </div>
                         </div>
                         <div class="mb-3">
                             <div class="col">
                                 <div class="mb-3"><label class="form-label" for="email"><strong>E-mail</strong></label><input class="form-control" type="text" id="email" placeholder="contact@livia.com" name="email" value=""></div>
-                            </div><button class="btn btn-primary btn-sm" type="submit" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;background: rgb(255,102,37);border-color: rgb(255,102,37);width: 148.203px;height: 37px;">Genereer code</button>
+                            </div>
+                            <button class="btn btn-primary btn-sm" type="submit" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;background: rgb(255,102,37);border-color: rgb(255,102,37);width: 148.203px;height: 37px;">Genereer code</button>
                         </div>
                     </form>
                 </div>
@@ -63,6 +67,7 @@
                                         <tr>
                                             <th>Gebruikers ID</th>
                                             <th>Code</th>
+                                            <th>Naam</th>
                                             <th>Telefoonnummeer</th>
                                             <th>E-Mail</th>
                                             <th>Acties</th>
@@ -71,6 +76,7 @@
                                         <tr>
                                             <td>{{adminInfo.userid}}</td>
                                             <td>{{adminInfo.code}}</td>
+                                            <td>{{adminInfo.naam}}</td>
                                             <td>{{adminInfo.telnr}}</td>
                                             <td>{{adminInfo.email}}</td>
                                             <td><a href="/delete/{{adminInfo.id}}/delete" class="verwijderbutton"><i class="far fa-trash-alt" style="color: red; margin-right: 5px;"></i>Verwijder code</a></td>

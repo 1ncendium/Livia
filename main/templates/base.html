@@ -44,14 +44,17 @@
                         <li class="nav-item"><a class="nav-link" href="privacy"><i class="fas fa-user-lock"></i><span>{{ _('Privacy') }}</span></a></li>
                         <li class="nav-item"><a class="nav-link" href="vragenlijst"><i class="fas fa-question"></i><span>{{ _('Vragenlijst') }}</span></a></li>
                         <li class="nav-item"><a class="nav-link" href="moodtracker"><i class="fa fa-smile-o"></i><span>{{ _('Mood tracker') }}</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="hulp"><i class="fas fa-user"></i><span>{{ _('Hulp') }}</span></a></li>
+
                         {% if current_user.is_nieuw() %}
                         <li class="nav-item"><a class="nav-link" href="intake"><i class="fas fa-question"></i><span>{{ _('Intake') }}</span></a></li>
-                        {% endif %} {% if current_user.is_docent() %}
+                        {% endif %}
+                        {% if current_user.is_docent() %}
                         <li class="nav-item"><a class="nav-link" href="docent"><i class="fas fa-user"></i><span>{{ _('Docent') }}</span></a></li>
-                        {% endif %} {% if current_user.is_admin() %}
+                        {% endif %}
+                        {% if current_user.is_admin() %}
                         <li class="nav-item"><a class="nav-link" href="intake"><i class="fas fa-question"></i><span>{{ _('Intake') }}</span></a></li>
                         <li class="nav-item"><a class="nav-link" href="docent"><i class="fas fa-user"></i><span>{{ _('Docent') }}</span></a></li>
-                        <li class="nav-item"><a class="nav-link" href="admin"><i class="fas fa-pen-square"></i><span>{{ _('Admin') }}</span></a></li>
                         {% endif %}
                     </ul>
                     <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
@@ -94,7 +97,7 @@
                                 <li class="nav-item dropdown no-arrow mx-1">
                                     <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="badge bg-danger badge-counter">1</span><i class="fas fa-bell fa-fw"></i></a>
                                         <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
-                                            <h6 class="dropdown-header">alerts center</h6>
+                                            <h6 class="dropdown-header">{{ _('Mededelingen') }}</h6>
                                             <a class="dropdown-item d-flex align-items-center" href="#">
                                                 <div class="me-3">
                                                     <div class="bg-primary icon-circle"><i class="fas fa-file-alt text-white"></i></div>
@@ -105,22 +108,6 @@
                                             </a><a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
                                         </div>
                                     </div>
-                                </li>
-                                <li class="nav-item dropdown no-arrow mx-1">
-                                    <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="badge bg-danger badge-counter">1</span><i class="fas fa-envelope fa-fw"></i></a>
-                                        <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
-                                            <h6 class="dropdown-header">alerts center</h6>
-                                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                                <div class="dropdown-list-image me-3"><img class="rounded-circle" src="avatars/avatar4.jpeg">
-                                                    <div class="bg-success status-indicator"></div>
-                                                    <div class="fw-bold">
-                                                        <div class="text-truncate"><span>I have the photos that you ordered last month!</span></div>
-                                                        <p class="small text-gray-500 mb-0">Jae Chun - 1d</p>
-                                                    </div>
-                                            </a><a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                                            </div>
-                                        </div>
-                                        <div class="shadow dropdown-list dropdown-menu dropdown-menu-end" aria-labelledby="alertsDropdown"></div>
                                 </li>
                                 <div class="d-none d-sm-block topbar-divider"></div>
                                 <li class="nav-item dropdown no-arrow">
