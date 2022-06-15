@@ -5,6 +5,8 @@ from werkzeug.utils import secure_filename
 import uuid as uuid
 import os
 from main import app
+import string
+import random
 
 def check_profiel(model, item, value):
     """
@@ -139,3 +141,10 @@ def allUnique(x):
     """
     seen = set()
     return not any(i in seen or seen.add(i) for i in x)
+
+def generateDocentenCode():
+    letters = string.ascii_uppercase
+    resultstr = ''.join(random.choice(letters) for i in range(12))
+    code = resultstr
+
+    return code

@@ -4,7 +4,7 @@ from main.forms import RegistrationForm, LoginForm, NaamGegevensForm, AdresGegev
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import render_template, redirect, request, url_for, flash, session
 from flask_login import login_user, login_required, logout_user, current_user
-from main.checks import check_profiel, check_Unique, check_and_store_wachtwoord, check_current_password, delete_user, change_Profilepic, password_check, allUnique
+from main.checks import check_profiel, check_Unique, check_and_store_wachtwoord, check_current_password, delete_user, change_Profilepic, password_check, allUnique, generateDocentenCode
 from main.graph import generateGraph, generate_huber_data, generateMonthlyGraph, createMoodGraph
 from datetime import datetime, date
 from main.vragenlijst import generateVragenlijst, avg_score, CustomPrioriteiten
@@ -14,6 +14,8 @@ from flask_babel import Babel
 from main.moodtracker import random_yoga_pose, save_mood
 import string
 import random
+from sqlalchemy import or_
+from main.userbeheer import manage
 
 babel = Babel(app)
 app.config['BABEL_TRANSLATION_DIRECTORIES'] = './translations'
@@ -145,9 +147,10 @@ def hulp():
     docentenlijst = []
     contactgegevens = []
     form = HulpForm()
+    user = User.query.filter_by(id=current_user.get_id()).first()
+    profielfoto = User.query.filter_by(id=current_user.get_id()).first().profiel_foto
     if request.method == 'POST':
         docentcode = request.form.get('code')
-        print(docentcode)
         if docentcode != None:
             if db.session.query(StudentHulp.userid).filter_by(userid=current_user.get_id(),code=docentcode ).first() is not None:
                 return redirect(url_for('hulp')), flash('U heeft deze code al toegevoegd')
@@ -160,7 +163,7 @@ def hulp():
         docentenlijst.append((x.code))
     for x in docentenlijst:
         contactgegevens.append(Docenten.query.filter_by(code=x).first())
-    return render_template('hulp.html', form=form, contactgegevens=contactgegevens)
+    return render_template('hulp.html', form=form, contactgegevens=contactgegevens, profielfoto=profielfoto)
 
 @app.route('/profiel', methods=['GET', 'POST'])
 @login_required
@@ -169,7 +172,7 @@ def profiel():
     user = User.query.filter_by(id=current_user.get_id()).first()
 
     if user.is_nieuw():
-        return redirect(url_for('intake'))
+        return redirect(url_for('intake')), flash('Je moet eerst de intake invullen voordat je deze pagina kunt bezoeken!')
 
     huber_cijfers = Huber.query.filter_by(userid=current_user.get_id()).first()
     DocentCodeForm = HulpForm()
@@ -250,20 +253,20 @@ def profiel():
             check_profiel(user, i, j)
 
         # Aangepaste categorie prioriteiten dagelijkse vragenlijsten
-        try:
+        if request.form.get('categorie_1') != None:
+            try:
+                p1 = request.form.get('categorie_1')
+                p2 = request.form.get('categorie_2')
+                p3 = request.form.get('categorie_3')
+                categorien = [p1, p2, p3]
+                if not allUnique(categorien):
+                    return redirect(url_for('profiel')), flash('Je kunt niet meerdere keren dezelfde categorie hebben')
 
-            p1 = request.form.get('categorie_1')
-            p2 = request.form.get('categorie_2')
-            p3 = request.form.get('categorie_3')
-
-            categorien = [p1, p2, p3]
-            if not allUnique(categorien):
-                return redirect(url_for('profiel')), flash('Je kunt meerdere keren dezelfde categorie hebben')
-
-            CustomPrioriteiten(int(current_user.get_id()), p1, p2, p3)
-        except:
-            # Niet aan de orde
-            pass
+                CustomPrioriteiten(int(current_user.get_id()), p1, p2, p3)
+                return redirect(url_for('profiel')), flash('Categorieën succesvol opgeslagen!')
+            except:
+                # Niet aan de orde
+                pass
 
 
 
@@ -293,7 +296,7 @@ def dashboard():
     user = User.query.filter_by(id=current_user.get_id()).first()
 
     if user.is_nieuw():
-        return redirect(url_for('intake'))
+        return redirect(url_for('intake')), flash('Je moet eerst de intake invullen voordat je deze pagina kunt bezoeken!')
 
     userid = current_user.get_id()
     profielfoto = User.query.filter_by(id=current_user.get_id()).first().profiel_foto
@@ -382,7 +385,7 @@ def vragenlijst():
     user = User.query.filter_by(id=current_user.get_id()).first()
 
     if user.is_nieuw():
-        return redirect(url_for('intake'))
+        return redirect(url_for('intake')), flash('Je moet eerst de intake invullen voordat je deze pagina kunt bezoeken!')
 
     vragen_dict = generateVragenlijst(user.aantal_vragen, user)
 
@@ -521,20 +524,24 @@ def getcookie():
 def docent():
     form = DocentenForm()
     userid = current_user.get_id()
-    if User.query.filter_by(id=current_user.get_id()).first().access not in [2, 3]:
-        return redirect(url_for('profiel')), flash('U kunt deze pagina niet bezoeken!')
     docentenInfo = Docenten.query.filter_by(userid=userid)
     adminInfo = Docenten.query.order_by(Docenten.id).all()
     profielfoto = User.query.filter_by(id=current_user.get_id()).first().profiel_foto
+
+    if User.query.filter_by(id=current_user.get_id()).first().access not in [2, 3]:
+        return redirect(url_for('profiel')), flash('U kunt deze pagina niet bezoeken!')
+
     if request.method == "POST":
         try:
             if db.session.query(Docenten.userid).filter_by(userid=current_user.get_id()).first() is not None:
                 return redirect(url_for('docent')), flash('U heeft al een code aangemaakt! verwijder deze eerst.')
-            letters = string.ascii_uppercase
-            resultstr = ''.join(random.choice(letters) for i in range(6))
-            code = resultstr
-            if db.session.query(UserCategorien.code).filter_by(code=code).first() is not None:
+
+            # Genereer random 12 letterige code
+            code = generateDocentenCode()
+
+            if db.session.query(Docenten.code).filter_by(code=code).first() is not None:
                 return redirect(url_for('Docent')), flash('Er ging iets mis, probeer het opnieuw.')
+
             naam = request.form.get('naam')
             telnr = request.form.get('telnr')
             email = request.form.get('email')
@@ -563,7 +570,7 @@ def moodtracker():
 
     user = User.query.filter_by(id=current_user.get_id()).first()
     if user.is_nieuw():
-        return redirect(url_for('intake'))
+        return redirect(url_for('intake')), flash('Je moet eerst de intake invullen voordat je deze pagina kunt bezoeken!')
 
     if request.method == 'POST':
         emotie = request.form.get('emotie')
@@ -583,7 +590,7 @@ def feedback():
 
     user = User.query.filter_by(id=current_user.get_id()).first() 
     if user.is_nieuw():
-        return redirect(url_for('intake'))
+        return redirect(url_for('intake')), flash('Je moet eerst de intake invullen voordat je deze pagina kunt bezoeken!')
 
     feedback_emotie = request.args["emotie"]
     emotie = request.args["emotie"]
@@ -595,7 +602,29 @@ def feedback():
         return render_template('feedback.html', emotie=emotie, oefening=yoga_oefening, profielfoto=profielfoto)
     else:
         return render_template('feedback.html', emotie=emotie, profielfoto=profielfoto)
-        
+
+@app.route('/admin', methods=['GET', 'POST'])
+@login_required
+def admin():
+
+    user = User.query.filter_by(id=current_user.get_id()).first() 
+    if not user.is_admin():
+        return redirect(url_for('home'))
+
+    profielfoto = User.query.filter_by(id=current_user.get_id()).first().profiel_foto
+
+    if request.method == "POST":
+
+        manage(request.form)
+
+        return redirect(url_for('admin'))
+
+    all_users = User.query.filter(or_(User.access == 0, User.access == 1)).all()
+    all_docenten = User.query.filter_by(access=2).all()
+    all_admins = User.query.filter_by(access=3).all()
+
+    return render_template('admin.html', all_admins=all_admins, all_docenten=all_docenten, all_users=all_users, profielfoto=profielfoto)
+
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0")

@@ -84,7 +84,7 @@ class DocentenForm(FlaskForm):
     submit = SubmitField('Submit')
 
 class HulpForm(FlaskForm):
-    code = StringField('docentcode', render_kw={"placeholder": "AAAAAA"}, validators=[Length(min=6, max=6)])
+    code = StringField('docentcode', render_kw={"placeholder": "AAAAAA"}, validators=[Length(min=12, max=12)])
     submit = SubmitField('Submit')
     
 
