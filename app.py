@@ -6,6 +6,7 @@ from flask import render_template, redirect, request, url_for, flash, session
 from flask_login import login_user, login_required, logout_user, current_user
 from main.checks import check_profiel, check_Unique, check_and_store_wachtwoord, check_current_password, delete_user, change_Profilepic, password_check, allUnique, generateDocentenCode
 from main.graph import generateGraph, generate_huber_data, generateMonthlyGraph, createMoodGraph
+from main.moodtips import getTip
 from datetime import datetime, date
 from main.vragenlijst import generateVragenlijst, avg_score, CustomPrioriteiten
 from main.get_data import getData
@@ -600,6 +601,12 @@ def feedback():
     if user.is_nieuw():
         return redirect(url_for('intake')), flash('Je moet eerst de intake invullen voordat je deze pagina kunt bezoeken!')
 
+    laatst_ingevuld = UserMood.query.filter_by(user_id = user.id).order_by(UserMood.datum.desc()).first().datum
+    vandaag = date.today()
+
+    if laatst_ingevuld == vandaag:
+        return redirect('profiel'), flash('Je hebt vandaag al de mood tracker ingevuld!')
+
     feedback_emotie = request.args["emotie"]
     emotie = request.args["emotie"]
 
@@ -607,7 +614,11 @@ def feedback():
 
     if emotie == 'boos' or emotie == 'gefrustreerd' or emotie == 'verdrietig':
         yoga_oefening = random_yoga_pose()
-        return render_template('feedback.html', emotie=emotie, oefening=yoga_oefening, profielfoto=profielfoto)
+
+        # Haal tip op
+        tip = getTip(emotie)
+
+        return render_template('feedback.html', emotie=emotie, oefening=yoga_oefening, profielfoto=profielfoto, tip=tip)
     else:
         return render_template('feedback.html', emotie=emotie, profielfoto=profielfoto)
 
