@@ -5,7 +5,7 @@
         <h3 class="text-dark mb-0">{{ _('Dagelijkse') }} <strong>mood </strong>tracker</h3>
     </div>
     <p class="text-start" style="margin-top: -18px;"><strong>{{ _('Met de mood tracker kun jij direct feedback krijgen op hoe jij je op dit moment voelt') }}</strong></p>
-    {% if vandaag_ingevuld == False %}
+    {% if vandaag_ingevuld == False or vandaag_ingevuld == None %}
     <div class="row" style="text-align: center;">
         <div class="col">
             <h3 class="text-center text-dark mb-0" style="font-size: 25px;margin-top: 6px;">{{ _('Hoe voel jij je vandaag?') }}</h3>

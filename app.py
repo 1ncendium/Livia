@@ -572,15 +572,17 @@ def moodtracker():
     user = User.query.filter_by(id=current_user.get_id()).first()
     if user.is_nieuw():
         return redirect(url_for('intake')), flash('Je moet eerst de intake invullen voordat je deze pagina kunt bezoeken!')
+    if db.session.query(UserMood.user_id).filter_by(user_id=current_user.get_id()).first() is not None:
+        laatst_ingevuld = UserMood.query.filter_by(user_id = user.id).order_by(UserMood.datum.desc()).first().datum
+        vandaag = date.today()
 
-    laatst_ingevuld = UserMood.query.filter_by(user_id = user.id).order_by(UserMood.datum.desc()).first().datum
-    vandaag = date.today()
-
-    if laatst_ingevuld == vandaag:
-        vandaag_ingevuld = True
+        if laatst_ingevuld == vandaag:
+            vandaag_ingevuld = True
+        else:
+            vandaag_ingevuld = False
     else:
-        vandaag_ingevuld = False
-
+        vandaag_ingevuld = None
+    
     if request.method == 'POST':
         emotie = request.form.get('emotie')
 
@@ -600,12 +602,6 @@ def feedback():
     user = User.query.filter_by(id=current_user.get_id()).first() 
     if user.is_nieuw():
         return redirect(url_for('intake')), flash('Je moet eerst de intake invullen voordat je deze pagina kunt bezoeken!')
-
-    laatst_ingevuld = UserMood.query.filter_by(user_id = user.id).order_by(UserMood.datum.desc()).first().datum
-    vandaag = date.today()
-
-    if laatst_ingevuld == vandaag:
-        return redirect('profiel'), flash('Je hebt vandaag al de mood tracker ingevuld!')
 
     feedback_emotie = request.args["emotie"]
     emotie = request.args["emotie"]
