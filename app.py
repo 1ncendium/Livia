@@ -169,7 +169,6 @@ def hulp():
 @app.route('/profiel', methods=['GET', 'POST'])
 @login_required
 def profiel():
-    print(f'cookie is: {request.cookies.get("2")}')
     user = User.query.filter_by(id=current_user.get_id()).first()
 
     if user.is_nieuw():
@@ -573,6 +572,14 @@ def moodtracker():
     if user.is_nieuw():
         return redirect(url_for('intake')), flash('Je moet eerst de intake invullen voordat je deze pagina kunt bezoeken!')
 
+    laatst_ingevuld = UserMood.query.filter_by(user_id = user.id).order_by(UserMood.datum.desc()).first().datum
+    vandaag = date.today()
+
+    if laatst_ingevuld == vandaag:
+        vandaag_ingevuld = True
+    else:
+        vandaag_ingevuld = False
+
     if request.method == 'POST':
         emotie = request.form.get('emotie')
 
@@ -583,7 +590,7 @@ def moodtracker():
         return redirect(url_for('.feedback', emotie=emotie)) 
 
     profielfoto = User.query.filter_by(id=current_user.get_id()).first().profiel_foto
-    return render_template('moodtracker.html', profielfoto=profielfoto)
+    return render_template('moodtracker.html', profielfoto=profielfoto, vandaag_ingevuld=vandaag_ingevuld)
 
 @app.route('/feedback')
 @login_required
@@ -655,10 +662,6 @@ def reset_request():
         flash('Er is een email verzonden')
         return redirect(url_for('login'))
     return render_template('reset_request.html', title='Reset Password', form=form)
-
-
-
-
 
 @app.route('/reset_password<token>', methods=['GET', 'POST'])
 def reset_token(token):
