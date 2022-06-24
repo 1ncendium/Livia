@@ -84,8 +84,22 @@ class DocentenForm(FlaskForm):
     submit = SubmitField('Submit')
 
 class HulpForm(FlaskForm):
-    code = StringField('docentcode', render_kw={"placeholder": "AAAAAA"}, validators=[Length(min=6, max=6)])
+    code = StringField('docentcode', render_kw={"placeholder": "AAAAAA"}, validators=[Length(min=12, max=12)])
     submit = SubmitField('Submit')
+
+class RequestResetForm(FlaskForm):
+    email = StringField('Email', render_kw={"placeholder": "Uw email"}, validators=[DataRequired(), Email()])
+    submit = SubmitField('Verstuur email')
+
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user is None:
+            raise ValidationError('Er is geen account met deze email.')
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('Password', render_kw={"placeholder": "Nieuw wachtwoord"}, validators=[DataRequired()])
+    confirm_password = PasswordField('Confirm Password', render_kw={"placeholder": "Bevestig nieuw wachtwoord"}, validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Wachtwoord reseten')
     
 
 

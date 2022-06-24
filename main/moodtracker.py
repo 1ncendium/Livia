@@ -2,7 +2,7 @@ import urllib.request
 import json
 import random
 from main import db
-from datetime import datetime, date
+from datetime import date
 from main.models import UserMood
 
 class Yoga_oefening(object):

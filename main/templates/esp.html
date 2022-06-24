@@ -1,0 +1,16 @@
+{% include "base.html" %}
+<div class="container">
+    <h1>Het bestand ID aanpassen</h1>
+    <p>Pas het bestand <code>id</code> aan in de esp32 en voer het volgende nummer in: <strong>{{user_id}}</strong></p>
+    <h1>Het bestand config.py aanpassen</h1>
+    <p>Pas de volgende gegevens in bestand <code>config.py</code> aan</p>
+    <ul>
+        <li><code>WIFI_SSID</code> achter het '=' teken moet de naam van uw wifi netwerk staan</li>
+        <li><code>WIFI_PASSWORD</code> achter het '=' teken moet de wachtwoord van uw wifi netwerk staan</li>
+    </ul>
+    <h1>De bestanden uploaden</h1>
+    <h5>Let op! de bestanden moeten eerst opgeslagen zijn!</h5>
+    <p>Upload beide bestanden naar de esp door middel van <a href="https://pypi.org/project/adafruit-ampy/" style="color: red;">ampy</a> te installeren en hierna in een terminal <code>ampy -p (poortnaam waar de esp in zit) put BESTANDSNAAM</code> te typen en op enter te klikken</p>
+    <p>Hiervoor moet u wel in de goede bestandslocatie zitten in de terminal!</p>
+    <p>Gebruik hiervoor <code>cd BESTANDSLOCATIE</code></p>
+</div>

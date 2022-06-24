@@ -1,32 +1,32 @@
 {% include 'base.html' %}
 <div class="container-fluid">
     <div class="d-sm-flex justify-content-between align-items-center mb-4">
-        <h3 class="text-dark mb-0">Docenten</h3>
+        <h3 class="text-dark mb-0">{{ _('Docenten') }}</h3>
     </div>
-    <p class="text-start" style="margin-top: -18px;"><strong>Hier kan een code gegenereerd worden om studenten toegang te geven tot jouw opgegeven contactgegevens.</strong></p>
+    <p class="text-start" style="margin-top: -18px;"><strong>{{ _('Hier kan een code gegenereerd worden om studenten toegang te geven tot jouw opgegeven contactgegevens') }}.</strong></p>
 </div>
 <div class="container" style="margin-top: 39px;">
     <div class="row">
         <div class="col-md-12">
             <div class="card shadow">
                 <div class="card-header py-3">
-                    <p class="text-primary m-0 fw-bold" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;">Genereer code</p>
+                    <p class="text-primary m-0 fw-bold" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;">{{ _('Genereer code') }}</p>
                 </div>
                 <div class="card-body">
                     <form method="POST">
                         <div class="row">
                             <div class="col">
-                                <div class="mb-3"><label class="form-label" for="telnr"><strong>Naam</strong></label><input class="form-control" type="text" id="naam" placeholder="Berend Botje" name="naam" value=""></div>
+                                <div class="mb-3"><label class="form-label" for="telnr"><strong>{{ _('Naam') }}</strong></label><input class="form-control" type="text" id="naam" placeholder="Berend Botje" name="naam" value=""></div>
                             </div>
                             <div class="col">
-                                <div class="mb-3"><label class="form-label" for="telnr"><strong>Telefoonnummer</strong></label><input class="form-control" type="text" id="telnr" placeholder="0612345678" name="telnr" value=""></div>
+                                <div class="mb-3"><label class="form-label" for="telnr"><strong>{{ _('Telefoonnummer') }}</strong></label><input class="form-control" type="text" id="telnr" placeholder="0612345678" name="telnr" value=""></div>
                             </div>
                         </div>
                         <div class="mb-3">
                             <div class="col">
-                                <div class="mb-3"><label class="form-label" for="email"><strong>E-mail</strong></label><input class="form-control" type="text" id="email" placeholder="contact@livia.com" name="email" value=""></div>
+                                <div class="mb-3"><label class="form-label" for="email"><strong>{{ _('E-mail') }}</strong></label><input class="form-control" type="text" id="email" placeholder="contact@livia.com" name="email" value=""></div>
                             </div>
-                            <button class="btn btn-primary btn-sm" type="submit" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;background: rgb(255,102,37);border-color: rgb(255,102,37);width: 148.203px;height: 37px;">Genereer code</button>
+                            <button class="btn btn-primary btn-sm" type="submit" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;background: rgb(255,102,37);border-color: rgb(255,102,37);width: 148.203px;height: 37px;">{{ _('Genereer code') }}</button>
                         </div>
                     </form>
                 </div>
@@ -37,7 +37,7 @@
         <div class="col-md-12" style="margin-top: 26px;">
             <div class="card shadow">
                 <div class="card-header py-3">
-                    <p class="text-primary m-0 fw-bold" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;">Codes</p>
+                    <p class="text-primary m-0 fw-bold" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;">{{ _('Codes') }}</p>
                 </div>
                 <div class="card-body">
                     <form>
@@ -47,11 +47,11 @@
                                     <table class="table">
                                         {% if current_user.is_docent() %}
                                         <tr>
-                                            <th>Gebruikersnaam</th>
-                                            <th>Code</th>
-                                            <th>Telefoonnummeer</th>
-                                            <th>E-Mail</th>
-                                            <th>Acties</th>
+                                            <th>{{ _('Gebruikersnaam') }}</th>
+                                            <th>{{ _('Code') }}</th>
+                                            <th>{{ _('Telefoonnummeer') }}</th>
+                                            <th>{{ _('E-Mail') }}</th>
+                                            <th>{{ _('Acties') }}</th>
                                         </tr>
                                         {% for docentenInfo in docentenInfo %}
                                         <tr>
@@ -65,12 +65,12 @@
                 
                                         {% if current_user.is_admin() %}
                                         <tr>
-                                            <th>Gebruikers ID</th>
-                                            <th>Code</th>
-                                            <th>Naam</th>
-                                            <th>Telefoonnummeer</th>
-                                            <th>E-Mail</th>
-                                            <th>Acties</th>
+                                            <th>{{ _('Gebruikers ID') }}</th>
+                                            <th>{{ _('Code') }}</th>
+                                            <th>{{ _('Naam') }}</th>
+                                            <th>{{ _('Telefoonnummeer') }}</th>
+                                            <th>{{ _('E-Mail') }}</th>
+                                            <th>{{ _('Acties') }}</th>
                                         </tr>
                                         {% for adminInfo in adminInfo %}
                                         <tr>

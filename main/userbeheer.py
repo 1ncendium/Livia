@@ -1,6 +1,6 @@
 from main import db
 from main.models import User
-from main.checks import delete_user
+from main.functions import delete_user
 
 def manage(req):
     # Controleren op admin

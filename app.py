@@ -1,19 +1,21 @@
 from main import app, db
-from main.models import User, Huber, EigenVragen, UserCategorien, UserMood, Docenten, StudentHulp
-from main.forms import RegistrationForm, LoginForm, NaamGegevensForm, AdresGegevensForm, NieuwWachtwoordForm, AangepasteCategorien, AccountVerwijderenForm, FotoForm, EigenvraagForm, VragenLijstForm, AantalVragenForm, QuestionListForm, DocentenForm, HulpForm
+from main.models import User, Huber, EigenVragen, UserCategorien, UserMood, Docenten, StudentHulp, Espdata
+from main.forms import RegistrationForm, LoginForm, NaamGegevensForm, AdresGegevensForm, NieuwWachtwoordForm, AangepasteCategorien, AccountVerwijderenForm, FotoForm, EigenvraagForm, VragenLijstForm, AantalVragenForm, QuestionListForm, DocentenForm, HulpForm, RequestResetForm, ResetPasswordForm
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import render_template, redirect, request, url_for, flash, session
 from flask_login import login_user, login_required, logout_user, current_user
-from main.checks import check_profiel, check_Unique, check_and_store_wachtwoord, check_current_password, delete_user, change_Profilepic, password_check, allUnique
+from main.functions import check_profiel, check_Unique, check_and_store_wachtwoord, check_current_password, delete_user, change_Profilepic, password_check, allUnique, generateDocentenCode, vragenlijstmededeling, moodtrackermededeling
 from main.graph import generateGraph, generate_huber_data, generateMonthlyGraph, createMoodGraph
+from main.moodtips import getTip
 from datetime import datetime, date
 from main.vragenlijst import generateVragenlijst, avg_score, CustomPrioriteiten
 from main.get_data import getData
 from flask.helpers import make_response
 from flask_babel import Babel
 from main.moodtracker import random_yoga_pose, save_mood
-import string
-import random
+from sqlalchemy import or_, func
+from main.userbeheer import manage
+import smtplib 
 
 babel = Babel(app)
 app.config['BABEL_TRANSLATION_DIRECTORIES'] = './translations'
@@ -145,9 +147,10 @@ def hulp():
     docentenlijst = []
     contactgegevens = []
     form = HulpForm()
+    user = User.query.filter_by(id=current_user.get_id()).first()
+    profielfoto = User.query.filter_by(id=current_user.get_id()).first().profiel_foto
     if request.method == 'POST':
         docentcode = request.form.get('code')
-        print(docentcode)
         if docentcode != None:
             if db.session.query(StudentHulp.userid).filter_by(userid=current_user.get_id(),code=docentcode ).first() is not None:
                 return redirect(url_for('hulp')), flash('U heeft deze code al toegevoegd')
@@ -160,16 +163,17 @@ def hulp():
         docentenlijst.append((x.code))
     for x in docentenlijst:
         contactgegevens.append(Docenten.query.filter_by(code=x).first())
-    return render_template('hulp.html', form=form, contactgegevens=contactgegevens)
+    return render_template('hulp.html', form=form, contactgegevens=contactgegevens, profielfoto=profielfoto)
 
 @app.route('/profiel', methods=['GET', 'POST'])
 @login_required
 def profiel():
-    print(f'cookie is: {request.cookies.get("2")}')
     user = User.query.filter_by(id=current_user.get_id()).first()
+    mood = UserMood.query.filter_by(user_id=current_user.get_id()).all()[-1]
+    moodtrackermededeling(user, mood)
 
     if user.is_nieuw():
-        return redirect(url_for('intake'))
+        return redirect(url_for('intake')), flash('Je moet eerst de intake invullen voordat je deze pagina kunt bezoeken!')
 
     huber_cijfers = Huber.query.filter_by(userid=current_user.get_id()).first()
     DocentCodeForm = HulpForm()
@@ -180,7 +184,7 @@ def profiel():
     fotoForm = FotoForm()
     aantalVragenForm = AantalVragenForm()
     aangepasteCategorien = AangepasteCategorien()
-    
+
     # Check of de request methode "POST" is
     if request.method == "POST":
         
@@ -250,20 +254,20 @@ def profiel():
             check_profiel(user, i, j)
 
         # Aangepaste categorie prioriteiten dagelijkse vragenlijsten
-        try:
+        if request.form.get('categorie_1') != None:
+            try:
+                p1 = request.form.get('categorie_1')
+                p2 = request.form.get('categorie_2')
+                p3 = request.form.get('categorie_3')
+                categorien = [p1, p2, p3]
+                if not allUnique(categorien):
+                    return redirect(url_for('profiel')), flash('Je kunt niet meerdere keren dezelfde categorie hebben')
 
-            p1 = request.form.get('categorie_1')
-            p2 = request.form.get('categorie_2')
-            p3 = request.form.get('categorie_3')
-
-            categorien = [p1, p2, p3]
-            if not allUnique(categorien):
-                return redirect(url_for('profiel')), flash('Je kunt meerdere keren dezelfde categorie hebben')
-
-            CustomPrioriteiten(int(current_user.get_id()), p1, p2, p3)
-        except:
-            # Niet aan de orde
-            pass
+                CustomPrioriteiten(int(current_user.get_id()), p1, p2, p3)
+                return redirect(url_for('profiel')), flash('Categorieën succesvol opgeslagen!')
+            except:
+                # Niet aan de orde
+                pass
 
 
 
@@ -293,7 +297,7 @@ def dashboard():
     user = User.query.filter_by(id=current_user.get_id()).first()
 
     if user.is_nieuw():
-        return redirect(url_for('intake'))
+        return redirect(url_for('intake')), flash('Je moet eerst de intake invullen voordat je deze pagina kunt bezoeken!')
 
     userid = current_user.get_id()
     profielfoto = User.query.filter_by(id=current_user.get_id()).first().profiel_foto
@@ -301,6 +305,13 @@ def dashboard():
     graph_naam = Huber.query.filter_by(userid = userid).order_by(Huber.id.desc()).first().image
     progressie_naam = Huber.query.filter_by(userid = userid).order_by(Huber.id.desc()).first().progressie_afbeelding
     Eigenvraagform = EigenvraagForm()
+
+    total = Espdata.query.filter_by(userid=userid).all()
+    data_id = 0
+    for d in total:
+        if d.id > data_id:
+            data_id = d.id
+    data = Espdata.query.filter_by(userid=userid, id=data_id).first()
 
     # Haal vragen op van user
     eigenvragen_van_user = EigenVragen.query.filter_by(user_id=current_user.get_id()).all()
@@ -333,7 +344,7 @@ def dashboard():
         return redirect(url_for('dashboard'))
         
 
-    return render_template('dashboard.html', profielfoto=profielfoto, vandaag=vandaag, graph_naam=graph_naam, progressie_naam=progressie_naam, Eigenvraagform=Eigenvraagform, eigenvragen_van_user=eigenvragen_van_user)
+    return render_template('dashboard.html', profielfoto=profielfoto, vandaag=vandaag, graph_naam=graph_naam, progressie_naam=progressie_naam, Eigenvraagform=Eigenvraagform, eigenvragen_van_user=eigenvragen_van_user, data=data)
 
 
 @app.route('/getData')
@@ -382,7 +393,7 @@ def vragenlijst():
     user = User.query.filter_by(id=current_user.get_id()).first()
 
     if user.is_nieuw():
-        return redirect(url_for('intake'))
+        return redirect(url_for('intake')), flash('Je moet eerst de intake invullen voordat je deze pagina kunt bezoeken!')
 
     vragen_dict = generateVragenlijst(user.aantal_vragen, user)
 
@@ -521,20 +532,24 @@ def getcookie():
 def docent():
     form = DocentenForm()
     userid = current_user.get_id()
-    if User.query.filter_by(id=current_user.get_id()).first().access not in [2, 3]:
-        return redirect(url_for('profiel')), flash('U kunt deze pagina niet bezoeken!')
     docentenInfo = Docenten.query.filter_by(userid=userid)
     adminInfo = Docenten.query.order_by(Docenten.id).all()
     profielfoto = User.query.filter_by(id=current_user.get_id()).first().profiel_foto
+
+    if User.query.filter_by(id=current_user.get_id()).first().access not in [2, 3]:
+        return redirect(url_for('profiel')), flash('U kunt deze pagina niet bezoeken!')
+
     if request.method == "POST":
         try:
             if db.session.query(Docenten.userid).filter_by(userid=current_user.get_id()).first() is not None:
                 return redirect(url_for('docent')), flash('U heeft al een code aangemaakt! verwijder deze eerst.')
-            letters = string.ascii_uppercase
-            resultstr = ''.join(random.choice(letters) for i in range(6))
-            code = resultstr
-            if db.session.query(UserCategorien.code).filter_by(code=code).first() is not None:
+
+            # Genereer random 12 letterige code
+            code = generateDocentenCode()
+
+            if db.session.query(Docenten.code).filter_by(code=code).first() is not None:
                 return redirect(url_for('Docent')), flash('Er ging iets mis, probeer het opnieuw.')
+
             naam = request.form.get('naam')
             telnr = request.form.get('telnr')
             email = request.form.get('email')
@@ -563,8 +578,18 @@ def moodtracker():
 
     user = User.query.filter_by(id=current_user.get_id()).first()
     if user.is_nieuw():
-        return redirect(url_for('intake'))
+        return redirect(url_for('intake')), flash('Je moet eerst de intake invullen voordat je deze pagina kunt bezoeken!')
+    if db.session.query(UserMood.user_id).filter_by(user_id=current_user.get_id()).first() is not None:
+        laatst_ingevuld = UserMood.query.filter_by(user_id = user.id).order_by(UserMood.datum.desc()).first().datum
+        vandaag = date.today()
 
+        if laatst_ingevuld == vandaag:
+            vandaag_ingevuld = True
+        else:
+            vandaag_ingevuld = False
+    else:
+        vandaag_ingevuld = None
+    
     if request.method == 'POST':
         emotie = request.form.get('emotie')
 
@@ -575,7 +600,7 @@ def moodtracker():
         return redirect(url_for('.feedback', emotie=emotie)) 
 
     profielfoto = User.query.filter_by(id=current_user.get_id()).first().profiel_foto
-    return render_template('moodtracker.html', profielfoto=profielfoto)
+    return render_template('moodtracker.html', profielfoto=profielfoto, vandaag_ingevuld=vandaag_ingevuld)
 
 @app.route('/feedback')
 @login_required
@@ -583,7 +608,7 @@ def feedback():
 
     user = User.query.filter_by(id=current_user.get_id()).first() 
     if user.is_nieuw():
-        return redirect(url_for('intake'))
+        return redirect(url_for('intake')), flash('Je moet eerst de intake invullen voordat je deze pagina kunt bezoeken!')
 
     feedback_emotie = request.args["emotie"]
     emotie = request.args["emotie"]
@@ -592,10 +617,87 @@ def feedback():
 
     if emotie == 'boos' or emotie == 'gefrustreerd' or emotie == 'verdrietig':
         yoga_oefening = random_yoga_pose()
-        return render_template('feedback.html', emotie=emotie, oefening=yoga_oefening, profielfoto=profielfoto)
+
+        # Haal tip op
+        tip = getTip(emotie)
+
+        return render_template('feedback.html', emotie=emotie, oefening=yoga_oefening, profielfoto=profielfoto, tip=tip)
     else:
         return render_template('feedback.html', emotie=emotie, profielfoto=profielfoto)
-        
+
+@app.route('/admin', methods=['GET', 'POST'])
+@login_required
+def admin():
+
+    user = User.query.filter_by(id=current_user.get_id()).first() 
+    if not user.is_admin():
+        return redirect(url_for('home'))
+
+    profielfoto = User.query.filter_by(id=current_user.get_id()).first().profiel_foto
+
+    if request.method == "POST":
+
+        manage(request.form)
+
+        return redirect(url_for('admin'))
+
+    all_users = User.query.filter(or_(User.access == 0, User.access == 1)).all()
+    all_docenten = User.query.filter_by(access=2).all()
+    all_admins = User.query.filter_by(access=3).all()
+
+    return render_template('admin.html', all_admins=all_admins, all_docenten=all_docenten, all_users=all_users, profielfoto=profielfoto)
+
+def send_reset_email(user):
+    
+    token = user.get_reset_token()
+    EMAIL_ADDRESS = 'projectsportstudies@outlook.com'
+    EMAIL_PASSWORD = 'Groep1G3'
+    recipient=user.email
+    print(recipient)
+    with smtplib.SMTP('smtp.office365.com', 587) as smtp:
+        smtp.ehlo()
+        smtp.starttls()
+        smtp.ehlo()
+        smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+        subject = 'Password Reset'
+        body = f'''Om je wachtwoord te reseten, klik op de volgende link: {url_for('reset_token', token=token, _external=True)}
+        TIP: Om je vitaliteit te verbeteren kan je beter niet in een tent wonen.'''
+        msg = f'Subject: {subject}\n\n{body}'
+        smtp.sendmail(EMAIL_ADDRESS, recipient, msg)
+
+@app.route('/reset_password', methods=['GET', 'POST'])
+def reset_request():
+    if current_user.is_authenticated:
+        return redirect(url_for('profiel'))  
+    form = RequestResetForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        send_reset_email(user)
+        flash('Er is een email verzonden')
+        return redirect(url_for('login'))
+    return render_template('reset_request.html', title='Reset Password', form=form)
+
+@app.route('/reset_password<token>', methods=['GET', 'POST'])
+def reset_token(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('profiel'))  
+    user = User.verify_reset_token(token)
+    if user is None:
+        flash('Ongeldige token', 'warning')
+        return redirect(url_for('reset_request'))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        password = request.form.get('password')
+        x = password_check(password)
+        if x['password_ok'] == False:
+            flash('Wachtwoord moet minaal 8 karakters lang zijn, 1 symbool, getal, hoofdletter en kleine letter bevatten')
+        else:
+            user.wachtwoord_hash = generate_password_hash(password)
+            db.session.commit()
+            flash('Wachtwoord geupdate')
+            return redirect(url_for('login'))
+    return render_template('reset_token.html', title='Reset Password', form=form)
+
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0")
