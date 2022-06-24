@@ -25,8 +25,7 @@ def get_yoga_pose(i):
     Maakt een request naar de yoga api en pakt op basis van een random integer i, een oefening
     Stuurt een object terug
     """
-    yoga_api_url =  "https://lightning-yoga-api.herokuapp.com/yoga_poses"
-    jso = urllib.request.urlopen(yoga_api_url)
+    jso = open('./main/static/assets/data/yogaoefeningen.json')
     data = json.load(jso)
 
     pose = data["items"][i]

@@ -15,17 +15,17 @@ def vragenlijstmededeling(userobject):
     Checkt of je de moodtracker en/of vragenlijst die dag nog moet invullen.
     """
     mededeling = 'Je kunt de vragenlijst nog invullen'
+    if userobject.laatst_ingevuld == None:
+        mededelingdata =   Mededelingen(userID=userobject.id, mededeling=mededeling)
+        db.session.add(mededelingdata)
+        db.session.commit()
+        return
     if userobject.laatst_ingevuld == date.today():
         if Mededelingen.query.filter_by(userID=userobject.id, mededeling=mededeling).first() != None:
             MededelingVerwijderen = Mededelingen.query.filter_by(userID=userobject.id, mededeling=mededeling).first()
             db.session.delete(MededelingVerwijderen)
             db.session.commit()
             return
-    if userobject.laatst_ingevuld == None:
-        mededelingdata =   Mededelingen(userID=userobject.id, mededeling=mededeling)
-        db.session.add(mededelingdata)
-        db.session.commit()
-        return
     if Mededelingen.query.filter_by(userID=userobject.id, mededeling=mededeling).first() != None:
         return
     if userobject.laatst_ingevuld != date.today():
@@ -36,17 +36,21 @@ def vragenlijstmededeling(userobject):
 
 def moodtrackermededeling(userobject, moodobject):
     mededeling = 'Je kunt de moodtracker nog invullen!'
+    if moodobject != []:
+        moodobject = moodobject[-1]
+    else:
+        moodobject = None
+    if moodobject == None:
+        mededelingdata =   Mededelingen(userID=userobject.id, mededeling=mededeling)
+        db.session.add(mededelingdata)
+        db.session.commit()
+        return
     if moodobject.datum == date.today():
         if Mededelingen.query.filter_by(userID=userobject.id, mededeling=mededeling).first() != None:
             Mededelingverwijderen = Mededelingen.query.filter_by(userID=userobject.id, mededeling=mededeling).first()
             db.session.delete(Mededelingverwijderen)
             db.session.commit()
             return
-    if moodobject.datum == None:
-        mededelingdata =   Mededelingen(userID=userobject.id, mededeling=mededeling)
-        db.session.add(mededelingdata)
-        db.session.commit()
-        return
     if Mededelingen.query.filter_by(userID=userobject.id, mededeling=mededeling).first() != None:
         return
     if moodobject.datum != date.today():

@@ -1,5 +1,5 @@
 from main import app, db
-from main.models import User, Huber, EigenVragen, UserCategorien, UserMood, Docenten, StudentHulp, Espdata
+from main.models import User, Huber, EigenVragen, UserCategorien, UserMood, Docenten, StudentHulp, Espdata, Mededelingen
 from main.forms import RegistrationForm, LoginForm, NaamGegevensForm, AdresGegevensForm, NieuwWachtwoordForm, AangepasteCategorien, AccountVerwijderenForm, FotoForm, EigenvraagForm, VragenLijstForm, AantalVragenForm, QuestionListForm, DocentenForm, HulpForm, RequestResetForm, ResetPasswordForm
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import render_template, redirect, request, url_for, flash, session
@@ -19,6 +19,15 @@ import smtplib
 
 babel = Babel(app)
 app.config['BABEL_TRANSLATION_DIRECTORIES'] = './translations'
+
+@app.context_processor
+def inject_user():
+    mededelinglijst = {'mededeling': []}
+    mededelingen = Mededelingen.query.filter_by(userID=current_user.get_id()).all()
+    for x in range(len(mededelingen)):
+        mededelinglijst['mededeling'].append(mededelingen[x].mededeling)
+        print(mededelinglijst)
+    return dict(mededelinglijst=mededelinglijst)
 
 @babel.localeselector
 def get_locale():
@@ -169,8 +178,9 @@ def hulp():
 @login_required
 def profiel():
     user = User.query.filter_by(id=current_user.get_id()).first()
-    mood = UserMood.query.filter_by(user_id=current_user.get_id()).all()[-1]
+    mood = UserMood.query.filter_by(user_id=current_user.get_id()).all()
     moodtrackermededeling(user, mood)
+    vragenlijstmededeling(user)
 
     if user.is_nieuw():
         return redirect(url_for('intake')), flash('Je moet eerst de intake invullen voordat je deze pagina kunt bezoeken!')
@@ -188,6 +198,12 @@ def profiel():
     # Check of de request methode "POST" is
     if request.method == "POST":
         
+        if request.form.get("reset") != None:
+            exists = db.session.query(UserCategorien.user_id).filter_by(user_id=user.id).first() is not None
+            if exists:
+                UserCategorien.query.filter_by(user_id=user.id).delete()
+                db.session.commit()
+
         # Aanpassingen inventariseren
         gebruikersnaam = request.form.get('gebruikersnaam')
         email = request.form.get('email')
@@ -295,6 +311,9 @@ def profiel():
 def dashboard():
 
     user = User.query.filter_by(id=current_user.get_id()).first()
+    mood = UserMood.query.filter_by(user_id=current_user.get_id()).all()
+    moodtrackermededeling(user, mood)
+    vragenlijstmededeling(user)
 
     if user.is_nieuw():
         return redirect(url_for('intake')), flash('Je moet eerst de intake invullen voordat je deze pagina kunt bezoeken!')

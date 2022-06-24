@@ -85,24 +85,23 @@
                                 </li>
                                 {% if current_user.is_authenticated %}
                                 <li class="nav-item dropdown no-arrow mx-1">
-                                    {% if current_user.is_nieuw() %}
-                                    <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="badge bg-danger badge-counter">1</span><i class="fas fa-bell fa-fw"></i></a>
+                                    {% if mededelinglijst['mededeling']|length != 0 %}
+                                    <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="badge bg-danger badge-counter">{{mededelinglijst['mededeling']|length}}</span><i class="fas fa-bell fa-fw"></i></a>
                                     {% else %}
                                     <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="badge bg-danger badge-counter"></span><i class="fas fa-bell fa-fw"></i></a>
                                     {% endif %}
                                         <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
                                             <h6 class="dropdown-header">{{ _('Mededelingen') }}</h6>
+                                            {% for x in mededelinglijst['mededeling'] %}
                                             <a class="dropdown-item d-flex align-items-center" href="#">
                                                 <div class="me-3">
                                                     <div class="bg-primary icon-circle"><i class="fas fa-file-alt text-white"></i></div>
-                                                </div>
+                                                </div>     
                                                 <div>
-                                                    {% if current_user.is_nieuw() %}
-                                                    <strong><p>Welkom, {{current_user.gebruikersnaam}}.</p></strong>
-                                                    <p> {{ _('Vul snel de intake in om gebruik te maken van de app!') }}</p>
-                                                    {% endif %}
+                                                {{ x}}
                                                 </div>
                                             </a>
+                                            {% endfor %}
                                         </div>
                                     </div>
                                 </li>

@@ -161,7 +161,10 @@
                     <br> {{ aangepasteCategorien.categorie_2.label }} {{ aangepasteCategorien.categorie_2 }} <br>
                     <br> {{ aangepasteCategorien.categorie_3.label }} {{ aangepasteCategorien.categorie_3 }} <br>
                 </div>
-                <div class="mb-3"><button class="btn btn-primary btn-sm" type="submit" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;background: rgb(255,102,37);border-color: rgb(255,102,37); width: 90px;">{{ _('Opslaan') }}</button></div>
+                <div class="mb-3">
+                    <button class="btn btn-primary btn-sm" type="submit" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;background: rgb(255,102,37);border-color: rgb(255,102,37); width: 90px;">{{ _('Opslaan') }}</button>
+                    <button class="btn btn-primary btn-sm" type="submit" name="reset" value="reset" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;background: rgb(255,0,0);border-color: rgb(255,0,0);">{{ _('Reset categorieën') }}</button>
+                </div>
             </form>
         </div>
     </div>
