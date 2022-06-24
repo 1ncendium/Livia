@@ -188,6 +188,13 @@ def profiel():
     # Check of de request methode "POST" is
     if request.method == "POST":
         
+        if request.form.get("reset") != None:
+            exists = db.session.query(UserCategorien.user_id).filter_by(user_id=user.id).first() is not None
+            if exists:
+                UserCategorien.query.filter_by(user_id=user.id).delete()
+                db.session.commit()
+
+
         # Aanpassingen inventariseren
         gebruikersnaam = request.form.get('gebruikersnaam')
         email = request.form.get('email')
