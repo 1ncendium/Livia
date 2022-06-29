@@ -94,6 +94,20 @@ def home():
         return redirect(url_for('profiel'))    
     return render_template('index.html')
 
+@app.route('/post_data', methods=['POST'])
+def post_data():
+    # post data in a dictionary
+    data = {
+                "temp": request.json['temp'], 
+                "luminance": request.json['luminance'],
+                "id": request.json['id']
+            }
+    
+    # write the data to the database
+    db.session.add(Data(time=datetime.datetime.now(), temp=data['temp'], luminance=data['luminance'], esp_id=data['id']))
+    db.session.commit()
+    return "done"
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -119,6 +133,13 @@ def login():
             flash('Inloggen mislukt, probeer opnieuw.')
             return render_template('login.html', form=form)
     return render_template('login.html', form=form)
+
+@app.route('/TermsOfService', methods=['POST', 'GET'])
+def TermsOfService():
+    if request.accept_languages.best_match(['nl', 'en']) == 'nl':
+        return render_template('Algemene_Voorwaarden.html')
+    if request.accept_languages.best_match(['nl', 'en']) == 'en':
+        return render_template('Terms_&_Conditions.html')
 
 @app.route('/register', methods=['POST', 'GET'])
 def register():
