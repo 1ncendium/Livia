@@ -1,0 +1,119 @@
+{% include 'base.html' %}
+<div class="container-fluid">
+<div class="row">
+    <div class="col-lg-5 col-xl-4">
+        <div class="card shadow mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <p class="text-primary m-0 fw-bold" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;">{{ _('Eerdere uitkomsten') }}</p>
+        </div>
+        <div class="card-body" style="width:100%">
+            <form>
+                <div class="row">
+                    <div class="col">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>{{ _('BMI') }}</th>
+                                        <th>{{ _('MHR') }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if result == -12345678 and resultMHR == -12345678 %}
+                                    {% else %}
+                                    <tr>
+                                        <td>{{ result }}</td>
+                                        <td>{{ resultMHR }}</td>
+                                    </tr>
+                                    {% endif %}
+                                </tbody>
+                                
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3"></div>
+            </form>
+            </div>
+            
+        </div>
+    </div>
+<div class="row">
+    <div class="col-lg-5 col-xl-4">
+        <div class="card shadow mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <p class="text-primary m-0 fw-bold" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;">{{ _('Feedback uitkomsten') }}</p>
+        </div>
+        <div class="card-body" style="width:100%">
+            <form>
+                <div class="row">
+                    <div class="col">
+                        {% if geslacht == 'man' %}    
+                            {% if result > 15 and result < 25 and resultMHR < 1 and resultMHR > 0.95 %}
+                            <p>Gezond BMI & MHR</p>
+                            {% elif result == -12345678 and resultMHR == -12345678 %}
+                            <p>Je hebt nog geen BMI en MHR uitgerekend</p>
+                            {% elif result < 15 and resultMHR < 1 and resultMHR > 0.95 %}
+                            <p>Je hebt ondergewicht maar je middel heup ratio is gezond!</p>
+                            {% elif result >= 25 and resultMHR < 1 and resultMHR > 0.95 %}
+                            <p>Je hebt overgewicht maar je middel heup ratio is gezond!</p>
+
+                            {% elif result > 15 and result < 25 and resultMHR >= 1 %}
+                            <p>Gezond BMI maar een te grote middel heup ratio!</p>
+                            {% elif result < 15 and resultMHR >= 1 %}
+                            <p>Je hebt ondergewicht en een te grote middel heup ratio!</p>
+                            {% elif result >= 25 and resultMHR >= 1 %}
+                            <p>Je hebt overgewicht en een te grote middel heup ratio!</p>
+
+                            {% elif result > 15 and result < 25 and resultMHR < 0.96 %}
+                            <p>Gezond BMI maar een te kleine middel heup ratio!</p>
+                            {% elif result < 15 and resultMHR < 0.96 %}
+                            <p>Je hebt ondergewicht en een te kleine middel heup ratio!</p>
+                            {% elif result >= 25 and resultMHR < 0.96 %}
+                            <p>Je hebt overgewicht en een te kleine middel heup ratio!</p>
+                            {% endif %}
+
+                        {% else %}
+
+                            {% if result > 15 and result < 25 and resultMHR < 0.86 and resultMHR > 0.80 %}
+                            <p>Gezond BMI & MHR</p>
+                            {% elif result == -12345678 and resultMHR == -12345678 %}
+                            <p>Je hebt nog geen BMI en MHR uitgerekend</p>
+                            {% elif result < 15 and resultMHR < 0.86 and resultMHR > 0.80 %}
+                            <p>Je hebt ondergewicht maar je middel heup ratio is gezond!</p>
+                            {% elif result >= 25 and resultMHR < 0.86 and resultMHR > 0.80 %}
+                            <p>Je hebt overgewicht maar je middel heup ratio is gezond!</p>
+
+                            {% elif result > 15 and result < 25 and resultMHR >= 0.86 %}
+                            <p>Gezond BMI maar een te grote middel heup ratio!</p>
+                            {% elif result < 15 and resultMHR >= 0.86 %}
+                            <p>Je hebt ondergewicht en een te grote middel heup ratio!</p>
+                            {% elif result >= 25 and resultMHR >= 0.86 %}
+                            <p>Je hebt overgewicht en een te grote middel heup ratio!</p>
+
+                            {% elif result > 15 and result < 25 and resultMHR < 0.81 %}
+                            <p>Gezond BMI maar een te kleine middel heup ratio!</p>
+                            {% elif result < 15 and resultMHR < 0.81 %}
+                            <p>Je hebt ondergewicht en een te kleine middel heup ratio!</p>
+                            {% elif result >= 25 and resultMHR < 0.81 %}
+                            <p>Je hebt overgewicht en een te kleine middel heup ratio!</p>
+                            {% endif %}
+                        {% endif %}
+                        <p><strong>Tip:</strong></p>
+                        <p>{{tip[0]}}</p></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                    
+            </div></div></div>
+            </form>
+            </div>
+            
+        </div>
+    </div>
+    
+    <img class="img-fluid" style="text-align: center;min-width: auto;width: 567px;" src="\static\assets\img\BMI_Plaatje.jpg"/>
+    <img class="img-fluid" style="text-align: center;min-width: auto;width: 567px;" src="\static\assets\img\MHR_Plaatje.png"/>
+</div>
+</div>
