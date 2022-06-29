@@ -1,15 +1,16 @@
 from main import app, db
-from main.models import User, Huber, EigenVragen, UserCategorien, UserMood, Docenten, StudentHulp, Espdata, Mededelingen
-from main.forms import RegistrationForm, LoginForm, NaamGegevensForm, AdresGegevensForm, NieuwWachtwoordForm, AangepasteCategorien, AccountVerwijderenForm, FotoForm, EigenvraagForm, VragenLijstForm, AantalVragenForm, QuestionListForm, DocentenForm, HulpForm, RequestResetForm, ResetPasswordForm
+from main.models import User, Huber, EigenVragen, UserCategorien, UserMood, Docenten, StudentHulp, Espdata, Mededelingen, BMI
+from main.forms import RegistrationForm, LoginForm, NaamGegevensForm, AdresGegevensForm, NieuwWachtwoordForm, AangepasteCategorien, AccountVerwijderenForm, FotoForm, EigenvraagForm, VragenLijstForm, AantalVragenForm, QuestionListForm, DocentenForm, HulpForm, RequestResetForm, ResetPasswordForm, BMIForm, MHRForm, SubmitForm
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import render_template, redirect, request, url_for, flash, session
 from flask_login import login_user, login_required, logout_user, current_user
-from main.functions import check_profiel, check_Unique, check_and_store_wachtwoord, check_current_password, delete_user, change_Profilepic, password_check, allUnique, generateDocentenCode, vragenlijstmededeling, moodtrackermededeling
+from main.functions import check_profiel, check_Unique, check_and_store_wachtwoord, check_current_password, delete_user, change_Profilepic, password_check, allUnique, generateDocentenCode, vragenlijstmededeling, moodtrackermededeling, mhrBereken, bmiBereken, send_help_email
 from main.graph import generateGraph, generate_huber_data, generateMonthlyGraph, createMoodGraph
 from main.moodtips import getTip
 from datetime import datetime, date
 from main.vragenlijst import generateVragenlijst, avg_score, CustomPrioriteiten
 from main.get_data import getData
+from main.BMIMHRtips import BMITip
 from flask.helpers import make_response
 from flask_babel import Babel
 from main.moodtracker import random_yoga_pose, save_mood
@@ -177,6 +178,7 @@ def hulp():
     docentenlijst = []
     contactgegevens = []
     form = HulpForm()
+    subform = SubmitForm()
     user = User.query.filter_by(id=current_user.get_id()).first()
     profielfoto = User.query.filter_by(id=current_user.get_id()).first().profiel_foto
     if request.method == 'POST':
@@ -188,12 +190,20 @@ def hulp():
             db.session.add(docentgegevens)
             db.session.commit()
             return redirect(url_for('hulp'))
+        if request.form.get("submit"):
+            userid = current_user.get_id()
+            exists = db.session.query(db.exists().where(getattr(StudentHulp, 'userid') == userid)).scalar()
+            if exists:
+                send_help_email()
+                flash("Email verzonden")
+            else:
+                flash("Je hebt nog geen code toegevoegd")
     docentcodes = StudentHulp.query.filter_by(userid=current_user.get_id()).all()
     for x in docentcodes:
         docentenlijst.append((x.code))
     for x in docentenlijst:
         contactgegevens.append(Docenten.query.filter_by(code=x).first())
-    return render_template('hulp.html', form=form, contactgegevens=contactgegevens, profielfoto=profielfoto)
+    return render_template('hulp.html', form=form, contactgegevens=contactgegevens, profielfoto=profielfoto, subform=subform)
 
 @app.route('/profiel', methods=['GET', 'POST'])
 @login_required
@@ -385,6 +395,61 @@ def dashboard():
         
 
     return render_template('dashboard.html', profielfoto=profielfoto, vandaag=vandaag, graph_naam=graph_naam, progressie_naam=progressie_naam, Eigenvraagform=Eigenvraagform, eigenvragen_van_user=eigenvragen_van_user, data=data)
+
+@app.route('/BMI', methods=['GET', 'POST'])
+@login_required
+def BerekenBMI():
+    user = User.query.filter_by(id=current_user.get_id()).first()
+    if user.is_nieuw():
+        return redirect(url_for('intake')), flash('Je moet eerst de intake invullen voordat je deze pagina kunt bezoeken!')
+    BmiForm = BMIForm()
+    MhrForm = MHRForm()
+    profielfoto = User.query.filter_by(id=current_user.get_id()).first().profiel_foto
+    BMIUitslagen = BMI.query.filter_by(userid=current_user.get_id()).order_by(BMI.id.desc())
+    if request.method == 'POST':
+        if request.form['lengte'] != None:
+            try:
+                userid = current_user.get_id()
+                Lengte = int(request.form['lengte'])
+                Gewicht = int(request.form['gewicht'])
+                Heupomtrek = int(request.form['heupomtrek'])
+                Middelomtrek = int(request.form['middelomtrek'])
+                uitkomst = mhrBereken(Heupomtrek, Middelomtrek)
+                BMIB = bmiBereken(Lengte, Gewicht)
+                BMIadd = BMI(userid=userid, BMI=BMIB, MHR=uitkomst)      
+                db.session.add(BMIadd)
+                db.session.commit()
+                return redirect(url_for('BMIFeedback'))
+            except:
+                pass
+
+    return render_template('BMI.html', BmiForm=BmiForm, BMIUitslagen=BMIUitslagen, profielfoto=profielfoto, MhrForm=MhrForm)
+
+@app.route('/BMIFeedback', methods=['GET', 'POST'])
+@login_required
+def BMIFeedback():
+    user = User.query.filter_by(id=current_user.get_id()).first()
+    if user.is_nieuw():
+        return redirect(url_for('intake')), flash('Je moet eerst de intake invullen voordat je deze pagina kunt bezoeken!')
+    
+    userid = current_user.get_id()
+    profielfoto = User.query.filter_by(id=current_user.get_id()).first().profiel_foto
+    A = db.session.query(BMI.userid).filter_by(userid=current_user.get_id()).first()
+    BMIUitslagen = BMI.query.filter_by(userid=current_user.get_id()).order_by(BMI.id.desc())
+    geslacht = User.query.filter_by(id=current_user.get_id()).first().geslacht
+
+    if A is not None:
+        try:
+            result = BMI.query.filter_by(userid=userid).order_by(BMI.id.desc()).first().BMI
+            resultMHR = BMI.query.filter_by(userid=userid).order_by(BMI.id.desc()).first().MHR
+        except:
+            pass
+    else:
+        result = -12345678       # Willekeurig getal
+        resultMHR = -12345678    # Willekeurig getal
+    tip = BMITip(result, resultMHR, geslacht)
+
+    return render_template('BMIFeedback.html', result=result, tip=tip, resultMHR=resultMHR, BMIUitslagen=BMIUitslagen, profielfoto=profielfoto, geslacht=geslacht)
 
 
 @app.route('/getData')
@@ -737,6 +802,7 @@ def reset_token(token):
             flash('Wachtwoord geupdate')
             return redirect(url_for('login'))
     return render_template('reset_token.html', title='Reset Password', form=form)
+
 
 
 if __name__ == '__main__':
