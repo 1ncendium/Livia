@@ -208,4 +208,18 @@ class Espdata(db.Model):
             self.temperature = temperature
             self.luminance = luminance
 
+class BMI(db.Model):
+    __tablename__ = 'BMI'
+
+    id = db.Column(db.Integer, primary_key=True)
+    userid = db.Column(db.Integer)
+    BMI = db.Column(db.Integer)
+    MHR = db.Column(db.Integer)
+
+
+    def __init__(self, userid, BMI, MHR):
+        self.userid = userid
+        self.BMI = BMI
+        self.MHR = MHR
+
 db.create_all()

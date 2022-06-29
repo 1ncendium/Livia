@@ -1,0 +1,95 @@
+{% include 'base.html' %}
+<div class="container-fluid">
+<div class="card shadow mb-3" style="margin-top: 16px;">
+    <div class="card-header py-3">
+        <p class="text-primary m-0 fw-bold" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;">{{ _('BMI & MHR Berekenen') }}</p>
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            <div class="mb-3">
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3"><label class="form-label"><strong>{{ _('Gewicht in kilogram:') }}</strong><br></label>{{BmiForm.gewicht(class="form-control form-control-user")}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3"><label class="form-label"><strong>{{ _('Lengte in centimeters:') }}</strong><br></label>{{BmiForm.lengte(class="form-control form-control-user")}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3"><label class="form-label"><strong>{{ _('Middelomtrek in centimeters:') }}</strong><br></label>{{MhrForm.middelomtrek(class="form-control form-control-user")}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3"><label class="form-label"><strong>{{ _('Heupomtrek in centimeters:') }}</strong><br></label>{{MhrForm.heupomtrek(class="form-control form-control-user")}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col"><button class="btn btn-primary btn-sm" type="submit" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;background: rgb(255,0,0);border-color: rgb(255,0,0);">{{ _('BMI Berekenen') }}</button></div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+<div class="row">
+    <div class="col-lg-5 col-xl-4">
+        <div class="card shadow mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <p class="text-primary m-0 fw-bold" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;">{{ _('Eerdere uitkomsten') }}</p>
+        </div>
+        <div class="card-body" style="width:100%">
+            <form>
+                <div class="row">
+                    <div class="col">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>{{ _('BMI') }}</th>
+                                        <th>{{ _('MHR') }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for i in BMIUitslagen %}
+                                    <tr>
+                                        <td>{{ i.BMI }}</td>
+                                        <td>{{ i.MHR }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                   
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3"></div>
+            </form>
+            </div>
+            
+        </div>
+    </div>
+    <div class="col-lg-7 col-xl-8">
+        <div class="card shadow mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h6 class="text-primary fw-bold m-0" style="--bs-primary: rgb(255,102,37);--bs-primary-rgb: 255,102,37;">{{ _('MHR opmeten') }}</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>{{ _('Waarom berekenen wij het MHR?') }}</strong></p>
+                <p>{{ _('Terwijl BMI de verhouding tussen je gewicht en je lengte berekent, kijk je bij je middel-heup-ratio (MHR) naar de verhouding tussen je middelomtrek en je heupomtrek om te bepalen hoeveel vet is opgeslagen rond je middel, heupen en billen.') }}</p>
+                
+                <p>{{ _('Dit is belangrijk omdat niet alle gevallen van overgewicht dezelfde gezondheidsrisicos met zich meebrengen. Mensen bij wie het extra gewicht vooral rond hun buik zit, hebben een groter risico op hart- en vaatziekten, diabetes type 2, beroertes en vroegtijdig overlijden dan mensen bij wie het gewicht vooral rond de heupen en dijen zit.') }}</p>
+                <p>{{ _('Hieronder kun je een video vinden die precies uitlegt hoe je je MHR opmeet.') }}</p>
+                <iframe width="420" height="315"
+                    src="https://www.youtube.com/embed/Fbw5AwnBX0s?start=179">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+

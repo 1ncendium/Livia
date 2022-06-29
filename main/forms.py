@@ -101,5 +101,15 @@ class ResetPasswordForm(FlaskForm):
     confirm_password = PasswordField('Confirm Password', render_kw={"placeholder": "Bevestig nieuw wachtwoord"}, validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Wachtwoord reseten')
     
+class BMIForm(FlaskForm):
+    gewicht = IntegerField('Gewicht', render_kw={"placeholder": "Gewicht"}, validators=[DataRequired()])
+    lengte = IntegerField('Lengte', render_kw={"placeholder": "Lengte"}, validators=[DataRequired()])
+    submit = SubmitField('BMI Berekenen')
 
+class MHRForm(FlaskForm):
+    middelomtrek = IntegerField('Middelomtrek', render_kw={"placeholder": "Middelomtrek"}, validators=[DataRequired()])
+    heupomtrek = IntegerField('Heupomtrek', render_kw={"placeholder": "Heupomtrek"}, validators=[DataRequired()])
+    submit = SubmitField('MHR Berekenen')
 
+class SubmitForm(FlaskForm):
+    submit = SubmitField("Verzend email")

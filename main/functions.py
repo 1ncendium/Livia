@@ -1,5 +1,5 @@
 from main import db
-from main.models import User, Mededelingen
+from main.models import User, Mededelingen, StudentHulp, Docenten
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 import uuid as uuid
@@ -7,7 +7,10 @@ import os
 from main import app
 import string
 import random
+import smtplib
 from datetime import timedelta, date
+from flask_login import login_user, login_required, logout_user, current_user
+
 
 def vragenlijstmededeling(userobject):
     """
@@ -202,3 +205,33 @@ def generateDocentenCode():
     code = resultstr
 
     return code
+
+def bmiBereken(Lengte, Gewicht):
+    Lengte1 = Lengte/100
+    Lengte2 = Lengte1*Lengte1
+    BMIberekend = Gewicht/Lengte2
+
+    return round(BMIberekend, 2)
+
+def mhrBereken(Heupomtrek, Middelomtrek):
+    uitkomst = Middelomtrek/Heupomtrek
+    return round(uitkomst, 2)
+    
+def send_help_email():
+    EMAIL_ADDRESS = 'no_reply_livia@outlook.com'
+    EMAIL_PASSWORD = 'MrTdDj1G3'
+    code = StudentHulp.query.filter_by(userid=current_user.get_id()).first().code
+    email = Docenten.query.filter_by(code=code).first().email
+    naam = User.query.filter_by(id=current_user.get_id()).first().voornaam
+
+    recipient=email
+
+    with smtplib.SMTP('smtp.office365.com', 587) as smtp:
+        smtp.ehlo()
+        smtp.starttls()
+        smtp.ehlo()
+        smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+        subject = 'Hulp nodig'
+        body = f''' {naam} geeft aan dat hij hulp nodig heeft '''
+        msg = f'Subject: {subject}\n\n{body}'
+        smtp.sendmail(EMAIL_ADDRESS, recipient, msg)
