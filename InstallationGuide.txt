@@ -1,0 +1,12 @@
+Installatie guide.
+
+1. Installeer de nieuwste versie van python op https://www.python.org/downloads/ 	NOTE: NIET VIA DE MICROSOFT STORE, dit kan later voor problemen zorgen!
+2. Installeer het ZIP bestand en pak deze uit op de locatie waarbij je later de webserver wilt gaan runnen. Wij raden aan om dit op het bureaublad te doen. NOTE: Kopieer je padlocatie van de map door de map te openen en dan in de verkenningsbalk de locatie te vinden. Zie: https://prnt.sc/fzCoJ1xIK1nh
+3. Open commandprompt als administator door in je zoekbalk CMD in te typen en klik dan op "als administrator uitvoeren"
+4. Zodra CMD geopent is typ je in "cd [padlocatie]" (zonder blokhaken en aanhalingstekens.) dus bijvoorbeeld cd C:\Users\<!GEBRUIKERSNAAM!>\Desktop\Livia (zie stap 2)
+5. Type vervolgens in de CMD "pip install -r requirements.txt" (zonder aanhalingstekens.) NOTE: Dit kan even duren voordat het installeren gelukt is.
+6. Nu ben je klaar om de webserver te runnen. Dit doe je doormiddel van het intypen van "python app.py" NOTE: Zorg dat je nogsteeds in dezelfde padlocatie zit. Al geeft CMD aan dat app.py niet gevonden kan worden doe dan stap 4 opnieuw.
+7. Als het goed is is de server nu online. Je kunt nu naar je webbrowser gaan en 127.0.0.1:5000 in te typen. NOTE: Dit is je localhost adres, dit kan aangepast zijn in de instellingen van je internetnetwerk!
+
+Afsluiten:
+Al wil je je webserver afsluiten dan kun je simpelweg het CMD bestand sluiten, al wil je opnieuw gebruik maken van het CMD bestand dan kun je ook de hotkey "CTRL + C" gebruiken.
