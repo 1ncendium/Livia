@@ -1,0 +1,30 @@
+[ROL NIEUWE GEBRUIKER]
+- Als nieuwe gebruiker is het mogelijk na het aanmaken van een account de intake enquete in te vullen.
+  Na het invullen krijgt de nieuwe gebruiker standaard de rol gebruiker.
+
+[ROL GEBRUIKER]
+- De gebruiker kan na het invullen van de intake enquete zijn/haar voortgang bekijken op het dashboard
+- Op de dashboard is het ook mogelijk om de temperatuur, licht en geluid van de kamer te bekijken.
+- De gebruiker kan ook zijn/haar vragen toevoegen op de dashboard.
+- Het is mogelijk om een dagelijkste vragenlijst in te vullen. 
+  Na 5 keer invullen kan de gebruiker zijn/haar progressie bekijken op het dashboard.
+- De gebruiker kan zijn/haar profiel wijzigen. Denk aan gebruikersnaam, email en wachtwoord. 
+  Ook is het mogelijk voor de gebruiker zijn/haar account te verwijderen.
+- Het is ook mogelijk om de aantal vragen van de vragenlijst te bepalen (max 50, min 10). 
+- Op de profiel pagina kan de gebruiker ook aangeven welke categorieen prioriteit hebben. 
+  Dit zorgt ervoor dat je meer vragen krijgt van de geselecteerde categorieen.
+- De gebruiker kan via de mood tracker aangeven hoe hij/zij zich voelt. 
+  Bij een negatieve emotie zal de webapplicatie een advies aangeven om dit te verhelpen.
+- Op de hulp pagina is het mogelijk om de gegeneerde code van de docent in te vullen zodat je de gegevens van de docent te zien krijgt.
+- Indien de gebruiker een code van een docent heeft ingevuld is het mogelijk om een docent via een knop te mailen en aangeven dat je hulp nodig hebt.
+- Op de BMI pagina is het mogelijk om je BMI te berekenen.
+  Na het invullen van je gegevens krijg je feedback op je BMI en eventueel een tip.
+
+[ROL DOCENT]
+- De docent kan alles wat de gebruiker kan.
+- De docent heeft de mogelijkheid om een code te genereren.
+  Deze code kan de docent geven aan leerlingen zodat de contactgegevens van de docent zichtbaar zijn voor de leerling (gebruiker).
+
+[ROL ADMIN]
+- De admin kan alles wat de gebruiker en docent kan.
+- De admin kan gebruikers, docenten en andere admins wijzigen en toevoegen.

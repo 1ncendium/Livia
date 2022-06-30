@@ -222,7 +222,7 @@ def send_help_email():
     EMAIL_PASSWORD = 'MrTdDj1G3'
     code = StudentHulp.query.filter_by(userid=current_user.get_id()).first().code
     email = Docenten.query.filter_by(code=code).first().email
-    naam = User.query.filter_by(id=current_user.get_id()).first().voornaam
+    naam = User.query.filter_by(id=current_user.get_id()).first().gebruikersnaam
 
     recipient=email
 

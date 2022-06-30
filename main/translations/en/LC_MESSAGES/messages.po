@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-06-02 17:30+0200\n"
-"PO-Revision-Date: 2022-06-02 17:31+0200\n"
+"POT-Creation-Date: 2022-06-30 22:54+0200\n"
+"PO-Revision-Date: 2022-06-30 22:54+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
 "Language-Team: en <LL@li.org>\n"
@@ -18,13 +18,166 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.10.1\n"
 
+#: main/templates/404.html:3
+msgid "404 Niet gevonden"
+msgstr "404 not found"
+
+#: main/templates/404.html:4
+msgid "Sorry, deze pagina bestaat niet"
+msgstr "Sorry, this page does not exist"
+
+#: main/templates/BMI.html:5
+msgid "BMI & MHR Berekenen"
+msgstr "Calculate your BMI & WHR"
+
+#: main/templates/BMI.html:12
+msgid "Gewicht in kilogram:"
+msgstr "Mass in kilogram"
+
+#: main/templates/BMI.html:17
+msgid "Lengte in centimeters:"
+msgstr "Length in centimeters"
+
+#: main/templates/BMI.html:22
+msgid "Middelomtrek in centimeters:"
+msgstr "Waist circumference in centimeters"
+
+#: main/templates/BMI.html:27
+msgid "Heupomtrek in centimeters:"
+msgstr "Hip circumference in centimeters"
+
+#: main/templates/BMI.html:31
+msgid "BMI Berekenen"
+msgstr "Calculate BMI"
+
+#: main/templates/BMI.html:41 main/templates/BMIFeedback.html:7
+msgid "Eerdere uitkomsten"
+msgstr "Previous results"
+
+#: main/templates/BMI.html:51 main/templates/BMIFeedback.html:17
+#: main/templates/base.html:48
+msgid "BMI"
+msgstr "BMI"
+
+#: main/templates/BMI.html:52 main/templates/BMIFeedback.html:18
+msgid "MHR"
+msgstr "WHR"
+
+#: main/templates/BMI.html:77
+msgid "MHR opmeten"
+msgstr "Measuring WHR"
+
+#: main/templates/BMI.html:80
+msgid "Waarom berekenen wij het MHR?"
+msgstr "Why we calculate your WHR?"
+
+#: main/templates/BMI.html:81
+msgid "Terwijl BMI de verhouding tussen je gewicht en je lengte berekent"
+msgstr "While the BMI calculates the relation between your weight and length"
+
+#: main/templates/BMI.html:81
+msgid "kijk je bij je middel-heup-ratio (MHR) naar de verhouding tussen je"
+msgstr "the waist hip ratio (WHR) looks at the relation between your"
+
+#: main/templates/BMI.html:81
+msgid "middelomtrek"
+msgstr "waist circumference"
+
+#: main/templates/BMI.html:81
+msgid "en je heupomtrek om te bepalen hoeveel vet is opgeslagen rond je"
+msgstr "and your hip circumference to determine how much fat you have stored around your"
+
+#: main/templates/BMI.html:81
+msgid "middel, heupen en billen"
+msgstr "waist, hip and ass"
+
+#: main/templates/BMI.html:83
+msgid "Dit is belangrijk omdat niet alle gevallen van overgewicht"
+msgstr "This is important because not every case of obesity"
+
+#: main/templates/BMI.html:83
+msgid "dezelfde gezondheidsrisicos met zich meebrengen"
+msgstr "brings the same health riscs with them"
+
+#: main/templates/BMI.html:83
+msgid "Mensen bij wie het extra gewicht vooral rond hun buik zit"
+msgstr "People who have extra weight around their belly"
+
+#: main/templates/BMI.html:83
+msgid "hebben een groter risico op hart- en vaatziekten, diabetes type 2"
+msgstr "have a bigger risc of getting hart and cardio vescular diseases, diabetes type 2"
+
+#: main/templates/BMI.html:83
+msgid "beroertes en vroegtijdig overlijden dan mensen bij wie het gewicht vooral"
+msgstr "strokes and premature death, in comparison with people who have their weight mainly "
+
+#: main/templates/BMI.html:83
+msgid " rond de heupen en dijen zit."
+msgstr "around their hip and thighs"
+
+#: main/templates/BMI.html:84
+msgid "Hieronder kun je een video vinden die precies uitlegt hoe je je MHR "
+msgstr "Below you can find a video explaining exactly how to get your MHR "
+
+#: main/templates/BMI.html:84
+msgid "opmeet."
+msgstr "measurements"
+
+#: main/templates/BMIFeedback.html:45
+msgid "Feedback uitkomsten"
+msgstr "Feedback results"
+
+#: main/templates/BMIFeedback.html:53 main/templates/BMIFeedback.html:79
+msgid "Gezond BMI & MHR"
+msgstr "Healthy BMI & WHR"
+
+#: main/templates/BMIFeedback.html:55 main/templates/BMIFeedback.html:81
+msgid "Je hebt nog geen BMI en MHR uitgerekend"
+msgstr "You haven't calculated your BMI and MHR yet"
+
+#: main/templates/BMIFeedback.html:57 main/templates/BMIFeedback.html:83
+msgid "Je hebt ondergewicht maar je middel heup ratio is gezond"
+msgstr "You are underweight but your waist hip ratio is healthy"
+
+#: main/templates/BMIFeedback.html:59 main/templates/BMIFeedback.html:85
+msgid "Je hebt overgewicht maar je middel heup ratio is gezond"
+msgstr "You are overweight but your waist hip ratio is healthy"
+
+#: main/templates/BMIFeedback.html:62 main/templates/BMIFeedback.html:88
+msgid "Gezond BMI maar een te grote middel heup ratio"
+msgstr "you have a healthy BMI but too high of a waist-to-hip ratio"
+
+#: main/templates/BMIFeedback.html:64 main/templates/BMIFeedback.html:90
+msgid "Je hebt ondergewicht en een te grote middel heup ratio"
+msgstr "You are underweight and have a high waist-to-hip ratio"
+
+#: main/templates/BMIFeedback.html:66 main/templates/BMIFeedback.html:92
+msgid "Je hebt overgewicht en een te grote middel heup ratio"
+msgstr "You are overweight and have a high waist-hip ratio"
+
+#: main/templates/BMIFeedback.html:69 main/templates/BMIFeedback.html:95
+msgid "Gezond BMI maar een te kleine middel heup ratio"
+msgstr "Healthy BMI but a low waist-hip ratio"
+
+#: main/templates/BMIFeedback.html:71 main/templates/BMIFeedback.html:97
+msgid "Je hebt ondergewicht en een te kleine middel heup ratio"
+msgstr "You are underweight and have a low waist-to-hip ratio"
+
+#: main/templates/BMIFeedback.html:73 main/templates/BMIFeedback.html:99
+msgid "Je hebt overgewicht en een te kleine middel heup ratio"
+msgstr "You are overweight and have a low waist-to-hip ratio"
+
+#: main/templates/BMIFeedback.html:102
+msgid "Tip"
+msgstr "Tip"
+
 #: main/templates/account_verwijderd.html:3
 msgid "Account Verwijderd"
-msgstr "Remove account"
+msgstr "Account has been removed"
 
 #: main/templates/account_verwijderd.html:9
 msgid "Jammer"
-msgstr "We regret to see you leave"
+msgstr "Sad"
 
 #: main/templates/account_verwijderd.html:17
 msgid "Gegevens"
@@ -38,7 +191,7 @@ msgstr "Why"
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: main/templates/base.html:43 main/templates/base.html:121
+#: main/templates/base.html:43 main/templates/base.html:112
 #: main/templates/profiel.html:3
 msgid "Profiel"
 msgstr "Profile"
@@ -51,21 +204,46 @@ msgstr "Privacy"
 msgid "Vragenlijst"
 msgstr "Questionnaire"
 
-#: main/templates/base.html:47
+#: main/templates/base.html:46
+msgid "Mood tracker"
+msgstr "Mood tracker"
+
+#: main/templates/base.html:47 main/templates/hulp.html:4
+msgid "Hulp"
+msgstr "Help"
+
+#: main/templates/base.html:51 main/templates/base.html:55
 msgid "Intake"
 msgstr "Intake"
 
-#: main/templates/base.html:123
+#: main/templates/base.html:53 main/templates/base.html:56
+#: main/templates/hulp.html:50
+msgid "Docent"
+msgstr "Teacher"
+
+#: main/templates/base.html:57
+msgid "Admin"
+msgstr "Admin"
+
+#: main/templates/base.html:95
+msgid "Mededelingen"
+msgstr "Notices"
+
+#: main/templates/base.html:114
 msgid "Uitloggen"
 msgstr "Log out"
 
+#: main/templates/dashboard.html:6
+msgid "Haal gegevens op uit database"
+msgstr "Collect data out of the database"
+
 #: main/templates/dashboard.html:14
 msgid "datum"
-msgstr "Date"
+msgstr "date"
 
 #: main/templates/dashboard.html:27
 msgid "temperatuur kamer"
-msgstr "Room temperature"
+msgstr "room temperature"
 
 #: main/templates/dashboard.html:40
 msgid "licht kamer"
@@ -73,65 +251,218 @@ msgstr "room illumination"
 
 #: main/templates/dashboard.html:52
 msgid "geluid kamer"
-msgstr "noice pollution"
+msgstr "noice polution"
 
-#: main/templates/dashboard.html:64
+#: main/templates/dashboard.html:60
+msgid "ESP Instellen"
+msgstr "ESP installation"
+
+#: main/templates/dashboard.html:66
 msgid "Huber"
 msgstr "Huber"
 
-#: main/templates/dashboard.html:74
+#: main/templates/dashboard.html:76
 msgid "Progressie vitaliteit"
-msgstr "Vitality progression"
+msgstr "Progression in vitality"
 
-#: main/templates/dashboard.html:81
+#: main/templates/dashboard.html:83
 msgid "Progressie kan pas na 5 keer invullen van de vragenlijst worden gezien"
-msgstr "You can see your progression when you answered the questionnaire 5 times"
+msgstr "Progression can only be seen after completing the questionnaire 5 times"
 
-#: main/templates/dashboard.html:92
+#: main/templates/dashboard.html:94
 msgid "Eigen vragen"
-msgstr "Personal questions"
+msgstr "Own questions"
 
-#: main/templates/dashboard.html:101
+#: main/templates/dashboard.html:103
 msgid "nog geen vragen"
 msgstr "No questions yet"
 
-#: main/templates/dashboard.html:129
+#: main/templates/dashboard.html:131
 msgid "Voeg vragen toe aan je vragenlijst"
 msgstr "Add questions to your questionnaire"
 
-#: main/templates/dashboard.html:134
+#: main/templates/dashboard.html:136
 msgid "Vraag"
 msgstr "Question"
 
-#: main/templates/dashboard.html:138
+#: main/templates/dashboard.html:140
 msgid "Categorie"
 msgstr "Category"
 
-#: main/templates/dashboard.html:142
+#: main/templates/dashboard.html:144
 msgid "Type vraag"
 msgstr "Type of question"
 
-#: main/templates/dashboard.html:147 main/templates/profiel.html:11
-#: main/templates/profiel.html:114 main/templates/profiel.html:134
-#: main/templates/profiel.html:167
+#: main/templates/dashboard.html:149 main/templates/hulp.html:32
+#: main/templates/profiel.html:11 main/templates/profiel.html:84
+#: main/templates/profiel.html:104 main/templates/profiel.html:119
+#: main/templates/profiel.html:135 main/templates/profiel.html:155
 msgid "Opslaan"
 msgstr "Save"
 
+#: main/templates/docent.html:4
+msgid "Docenten"
+msgstr "Teachers"
+
+#: main/templates/docent.html:6
+msgid "Hier kan een code gegenereerd worden om studenten toegang te geven tot "
+msgstr "Here you can create a code to give students acces"
+
+#: main/templates/docent.html:6
+msgid "jouw opgegeven contactgegevens"
+msgstr "to your contact details"
+
+#: main/templates/docent.html:13 main/templates/docent.html:29
+msgid "Genereer code"
+msgstr "Generate code"
+
+#: main/templates/docent.html:19 main/templates/docent.html:70
+msgid "Naam"
+msgstr "Name"
+
+#: main/templates/docent.html:22 main/templates/hulp.html:51
+msgid "Telefoonnummer"
+msgstr "Phone number"
+
+#: main/templates/docent.html:27 main/templates/hulp.html:52
+msgid "E-mail"
+msgstr "E-mail"
+
+#: main/templates/docent.html:40
+msgid "Codes"
+msgstr "Codes"
+
+#: main/templates/docent.html:50 main/templates/profiel.html:64
+msgid "Gebruikersnaam"
+msgstr "Username"
+
+#: main/templates/docent.html:51 main/templates/docent.html:69
+msgid "Code"
+msgstr "Code"
+
+#: main/templates/docent.html:52 main/templates/docent.html:71
+msgid "Telefoonnummeer"
+msgstr "Phone number"
+
+#: main/templates/docent.html:53 main/templates/docent.html:72
+msgid "E-Mail"
+msgstr "E-Mail"
+
+#: main/templates/docent.html:54 main/templates/docent.html:73
+msgid "Acties"
+msgstr "Actions"
+
+#: main/templates/docent.html:68
+msgid "Gebruikers ID"
+msgstr "User ID"
+
+#: main/templates/feedback.html:4 main/templates/moodtracker.html:5
+msgid "Dagelijkse"
+msgstr "Daily"
+
+#: main/templates/feedback.html:6
+msgid "Met de mood tracker kun jij direct feedback krijgen op hoe jij je op dit"
+msgstr "Using the mood tracker you can get direct feedback on how you"
+
+#: main/templates/feedback.html:6
+msgid "moment voelt"
+msgstr "feel at that moment"
+
+#: main/templates/feedback.html:9
+msgid "Je hebt aangegeven je vandaag"
+msgstr "You told us that you feel"
+
+#: main/templates/feedback.html:9
+msgid "te voelen"
+msgstr "today"
+
+#: main/templates/feedback.html:27
+msgid "Yoga oefening"
+msgstr "Yoga exercise"
+
+#: main/templates/feedback.html:33
+msgid "Wetenschappelijk onderzoek wijst uit dat yoga kan helpen om sombere"
+msgstr "Scientific research shows that yoga can help to relieve gloomy"
+
+#: main/templates/feedback.html:33
+msgid "gevoelens buiten de deur te houden"
+msgstr "feelings out of the door"
+
+#: main/templates/feedback.html:38
+msgid "Wat fijn dat jij je vandaag goed voelt!"
+msgstr "Good to hear that you feel good today"
+
+#: main/templates/feedback.html:40
+msgid "Emotiewiel van Robert Plutchik"
+msgstr "Emotion wheel by Robert Plutchik"
+
+#: main/templates/hulp.html:6
+msgid "Studeren is leuk en uitdagend, maar soms ook stressvol en spannend"
+msgstr "Studying is fun and challenging, but also stressful and exciting at times"
+
+#: main/templates/hulp.html:6
+msgid "Kom je er even niet alleen uit? Geen probleem"
+msgstr "Can't you figure a way out alone? No problem"
+
+#: main/templates/hulp.html:13
+msgid "Hanze support"
+msgstr "Hanze support"
+
+#: main/templates/hulp.html:16
+msgid "Hanze Student Support helpt en ondersteunt jou om hiermee om te gaan"
+msgstr "Hanze Student Support helps and supports you to deal with this"
+
+#: main/templates/hulp.html:16
+msgid "Praat met een studentendecaan of studentenpsycholoog"
+msgstr "Talk to a student counselor or student psychologist"
+
+#: main/templates/hulp.html:16
+msgid "maak gebruik van voorzieningen en regelingen en doe mee aan een"
+msgstr "make use of facilities and regulations and participate in an"
+
+#: main/templates/hulp.html:16
+msgid "(online) cursus of groepscoaching"
+msgstr "(online) cursus or groupcoaching"
+
+#: main/templates/hulp.html:26
+msgid "Code van docent"
+msgstr "Teacher code"
+
+#: main/templates/hulp.html:30
+msgid "Vul hier de code in van je docent om toegang te krijgen tot zijn of haar"
+msgstr "Fill in the teacher code to get access to his or her"
+
+#: main/templates/hulp.html:30
+msgid "contactgegevens"
+msgstr "contact details"
+
+#: main/templates/hulp.html:40
+msgid "Docent contactgegevens"
+msgstr "Teacher contact details"
+
+#: main/templates/hulp.html:78
+msgid "Mail je docent voor hulp"
+msgstr "Mail your teacher for help"
+
 #: main/templates/index.html:5
 msgid "Aan de slag met vitaliteit"
-msgstr "Get started with your vitality"
+msgstr "Lets work on your vitality"
 
 #: main/templates/index.html:7
 msgid "Je kunt je vitaliteit op pijl houden"
-msgstr "You can keep your vitality on the right level"
+msgstr "You can keep your vitality on the same level"
 
 #: main/templates/index.html:7
 msgid "of verhogen door goed voor je lichaam te zorgen"
-msgstr "or increase it by taking care of your body"
+msgstr "or increase it by taking good care of your body"
+
+#: main/templates/index.html:7
+msgid "Zorg bijvoorbeeld voor voldoende slaap"
+msgstr "Make sure you get enough sleep
 
 #: main/templates/index.html:7
 msgid "eet en drink gezond en beweeg voldoende"
-msgstr "eat, drink and exercise on a regular base"
+msgstr "eat and drink healthy and exercise enough"
 
 #: main/templates/index.html:7
 msgid "Jouw lichaam is dan fitter"
@@ -139,7 +470,7 @@ msgstr "Your body will be fitter"
 
 #: main/templates/index.html:7
 msgid "en je hebt voldoende basisenergie"
-msgstr "and you will be fitter"
+msgstr "and you will have plenty of base energy"
 
 #: main/templates/index.html:12 main/templates/login.html:6
 msgid "Inloggen"
@@ -150,12 +481,24 @@ msgid "Registreren"
 msgstr "Register"
 
 #: main/templates/index.html:19
+msgid "Wachtwoord vergeten?"
+msgstr "Forgot password?"
+
+#: main/templates/index.html:19
+msgid "Klik hier"
+msgstr "Click here"
+
+#: main/templates/index.html:20
 msgid "Geen kleine lettertjes"
 msgstr "No fine print"
 
-#: main/templates/index.html:19
+#: main/templates/index.html:20
 msgid "Lees hier hoe wij met uw gegevens omgaan"
-msgstr "Read here about the way we handle your data"
+msgstr "Read here about how we handle your data"
+
+#: main/templates/index.html:20
+msgid " en hier onze Terms of Service"
+msgstr " and here about our Terms of Service"
 
 #: main/templates/login.html:8
 msgid "Welkom terug"
@@ -165,103 +508,163 @@ msgstr "Welcome back"
 msgid "Wachtwoord vergeten"
 msgstr "Forgot password"
 
-#: main/templates/login.html:26
+#: main/templates/login.html:26 main/templates/reset_request.html:19
 msgid "Geen account"
 msgstr "No account"
 
-#: main/templates/login.html:27
+#: main/templates/login.html:27 main/templates/reset_request.html:20
 msgid "Registreer nu"
 msgstr "Register now"
 
-#: main/templates/privacy.html:15
+#: main/templates/moodtracker.html:5
+msgid "mood"
+msgstr "mood"
+
+#: main/templates/moodtracker.html:5
+msgid "tracker"
+msgstr "tracker"
+
+#: main/templates/moodtracker.html:7
+msgid "Met de mood tracker kun jij direct feedback krijgen"
+msgstr "Using the mood tracker you'll get direct feedback"
+
+#: main/templates/moodtracker.html:7
+msgid "op hoe jij je op dit moment voelt"
+msgstr "on how you feel at that moment"
+
+#: main/templates/moodtracker.html:11
+msgid "Hoe voel jij je vandaag?"
+msgstr "How do you feel today"
+
+#: main/templates/moodtracker.html:20
+msgid "Boos"
+msgstr "Angry"
+
+#: main/templates/moodtracker.html:24
+msgid "Gefrustreerd"
+msgstr "Frustrated"
+
+#: main/templates/moodtracker.html:28
+msgid "Verdrietig"
+msgstr "Sad"
+
+#: main/templates/moodtracker.html:34
+msgid "Kalm"
+msgstr "Calm"
+
+#: main/templates/moodtracker.html:38
+msgid "Blij"
+msgstr "Happy"
+
+#: main/templates/moodtracker.html:42
+msgid "Enthousiast"
+msgstr "Enthusiastic"
+
+#: main/templates/moodtracker.html:50
+msgid "Je hebt de moodtracker vandaag ingevuld"
+msgstr "You allready filled in the moodtracker today"
+
+#: main/templates/moodtracker.html:51 main/templates/vragen.html:23
+msgid "Kom terug over"
+msgstr "Return in"
+
+#: main/templates/moodtracker.html:85 main/templates/vragen.html:57
+msgid "Terug naar dashboard"
+msgstr "Return to dashboard"
+
+#: main/templates/privacy.html:9
+msgid "Hoe wij omgaan met uw gegevens"
+msgstr "How we handle your data"
+
+#: main/templates/privacy.html:17
 msgid "Uw gegevens worden niet gedeeld"
-msgstr "Your data will not be shared"
+msgstr "Your data won't be shared"
 
-#: main/templates/privacy.html:15
+#: main/templates/privacy.html:17
 msgid "De gegevens worden wel veilig opgeslagen in onze database. Deze"
-msgstr "The data will be stored savely on our database. This  "
+msgstr "The data will be stored savelly on our database. This"
 
-#: main/templates/privacy.html:15
+#: main/templates/privacy.html:17
 msgid "gegevens"
 msgstr "data"
 
-#: main/templates/privacy.html:15
+#: main/templates/privacy.html:17
 msgid "worden"
-msgstr "will be"
+msgstr "is being"
 
-#: main/templates/privacy.html:15
+#: main/templates/privacy.html:17
 msgid "verzameld"
 msgstr "collected"
 
-#: main/templates/privacy.html:15
+#: main/templates/privacy.html:18
 msgid "aan de hand van verzonden antwoorden uit onder andere"
 msgstr "on the basis of answers sent from, among others"
 
-#: main/templates/privacy.html:15
+#: main/templates/privacy.html:18
 msgid "vragenlijst"
 msgstr "the questionnaire"
 
-#: main/templates/privacy.html:15
+#: main/templates/privacy.html:18
 msgid "en"
 msgstr "and"
 
-#: main/templates/privacy.html:15
+#: main/templates/privacy.html:18
 msgid "sensormetingen"
 msgstr "sensorreadings"
 
-#: main/templates/privacy.html:16
+#: main/templates/privacy.html:19
 msgid "Met deze gegevens kunnen wij uw"
 msgstr "Using this data we can map your"
 
-#: main/templates/privacy.html:16
+#: main/templates/privacy.html:19
 msgid "welzijn"
-msgstr "welbeing"
+msgstr "well-being"
 
-#: main/templates/privacy.html:16
+#: main/templates/privacy.html:19
 msgid "in kaart brengen met als doel dit te"
 msgstr "with the aim of"
 
-#: main/templates/privacy.html:16
-msgid "verbeteren"
-msgstr "increasing your welbeing"
-
-#: main/templates/privacy.html:17
-msgid "Uw gegevens worden direct na het verzenden opgeslagen in onze"
-msgstr "Your data will immediately be stored on our"
-
-#: main/templates/privacy.html:17
-msgid "eigen database"
-msgstr "own database"
-
-#: main/templates/privacy.html:17
-msgid "Na het"
-msgstr "After you"
-
-#: main/templates/privacy.html:17 main/templates/privacy.html:18
-msgid "verwijderen"
-msgstr "remove"
-
-#: main/templates/privacy.html:17
-msgid "van uw account blijven de gegevens van de vragenlijsten in onze database"
-msgstr "your account, data gathered through the questionnaire will stay in our database"
-
-#: main/templates/privacy.html:18
-msgid "Uw persoonsgegevens"
-msgstr "We will"
-
-#: main/templates/privacy.html:18
-msgid "we wel volledig"
-msgstr "your personal data in its entirety"
-
 #: main/templates/privacy.html:19
-msgid "Dit doen we zodat we u niet meer aan deze gegevens kunnen koppelen"
-msgstr "This is done so we can not link it to any data gathered  in the questionnaire"
+msgid "verbeteren"
+msgstr "increasing it"
 
 #: main/templates/privacy.html:20
-msgid "Voor vragen of om uw gegevens in te zien verzoeken wij u te mailen naar"
-msgstr "If you have any questions, or wanna check the data we gathered, you can always send a mail to"
+msgid "Uw gegevens worden direct na het verzenden opgeslagen in onze"
+msgstr "Your data will be saved on our own database"
 
-#: main/templates/privacy.html:27
+#: main/templates/privacy.html:20
+msgid "eigen database"
+msgstr "immediately after sending"
+
+#: main/templates/privacy.html:20
+msgid "Na het"
+msgstr "After"
+
+#: main/templates/privacy.html:20 main/templates/privacy.html:21
+msgid "verwijderen"
+msgstr "the removal of"
+
+#: main/templates/privacy.html:20
+msgid "van uw account blijven de gegevens van de vragenlijsten in onze database"
+msgstr "your account, the data collected from your questionnaire"
+
+#: main/templates/privacy.html:21
+msgid "Uw persoonsgegevens"
+msgstr "Your personal data will also under go"
+
+#: main/templates/privacy.html:21
+msgid "we wel volledig"
+msgstr "all the data"
+
+#: main/templates/privacy.html:22
+msgid "Dit doen we zodat we u niet meer aan deze gegevens kunnen koppelen"
+msgstr "We do this so we can't link you to the gathered data"
+
+#: main/templates/privacy.html:23
+msgid "Voor vragen of om uw gegevens in te zien verzoeken wij u te mailen naar"
+msgstr "If you have any questions, or want to check the gathered data, send a mail to"
+
+#: main/templates/privacy.html:30
 msgid "Terug"
 msgstr "Return"
 
@@ -283,7 +686,7 @@ msgstr "Quality of life"
 
 #: main/templates/profiel.html:36
 msgid "Zingeving"
-msgstr "Welbeing"
+msgstr "Meaning"
 
 #: main/templates/profiel.html:41
 msgid "Mentale welbevinding"
@@ -293,67 +696,79 @@ msgstr "Mental welbeing"
 msgid "Lichaamsfunctie"
 msgstr "Bodily functioning"
 
-#: main/templates/profiel.html:88
+#: main/templates/profiel.html:58
 msgid "Info"
-msgstr "Information"
+msgstr "Ifno"
 
-#: main/templates/profiel.html:94
-msgid "Gebruikersnaam"
-msgstr "Username"
-
-#: main/templates/profiel.html:97
+#: main/templates/profiel.html:67
 msgid "Email"
 msgstr "Email"
 
-#: main/templates/profiel.html:102
+#: main/templates/profiel.html:72
 msgid "Voornaam"
 msgstr "First name"
 
-#: main/templates/profiel.html:105
+#: main/templates/profiel.html:75
 msgid "Achternaam"
 msgstr "Last name"
 
-#: main/templates/profiel.html:110
+#: main/templates/profiel.html:80
 msgid "Telefoon"
-msgstr "Phone"
+msgstr "Phone number"
 
-#: main/templates/profiel.html:121
+#: main/templates/profiel.html:91
 msgid "Contact"
 msgstr "Contact"
 
-#: main/templates/profiel.html:125
+#: main/templates/profiel.html:95
 msgid "Adres"
 msgstr "Address"
 
-#: main/templates/profiel.html:128
+#: main/templates/profiel.html:98
 msgid "Stad"
 msgstr "City"
 
-#: main/templates/profiel.html:131
+#: main/templates/profiel.html:101
 msgid "Land"
 msgstr "Country"
 
-#: main/templates/profiel.html:144
+#: main/templates/profiel.html:114
 msgid "Aantal vragen in vragenlijst aanpassen"
 msgstr "Change the amount of questions in the questionnaire"
 
-#: main/templates/profiel.html:148
+#: main/templates/profiel.html:118
 msgid "Aantal vragen in dagelijkse vragenlijst (Max 50, min 10)"
-msgstr "Amount of questions in the daily questionnaire (Max 50, min 10)"
+msgstr "Amonut of questions in the daily questionnaire (Max 50, min 10)"
 
-#: main/templates/profiel.html:155 main/templates/profiel.html:180
+#: main/templates/profiel.html:125
+msgid "Kies zelf categorieën voor de vragenlijsten"
+msgstr "Choose categories for the questionnaires yourself"
+
+#: main/templates/profiel.html:129
+msgid "Hier kun je zelf kiezen welke categorieën de meeste prioriteit hebben"
+msgstr "Here you can choose which categories should have the most priority"
+
+#: main/templates/profiel.html:129
+msgid "Deze worden opgeslagen en verwerkt in jouw dagelijkse vragenlijsten."
+msgstr "These are stored and processed in your daily questionnaires"
+
+#: main/templates/profiel.html:136
+msgid "Reset categorieën"
+msgstr "Reset categories"
+
+#: main/templates/profiel.html:143 main/templates/profiel.html:168
 msgid "Wachtwoord"
 msgstr "Password"
 
-#: main/templates/profiel.html:161
+#: main/templates/profiel.html:149
 msgid "Huidig wachtwoord"
 msgstr "Current password"
 
-#: main/templates/profiel.html:164
+#: main/templates/profiel.html:152
 msgid "Nieuw wachtwoord"
 msgstr "New password"
 
-#: main/templates/profiel.html:173 main/templates/profiel.html:184
+#: main/templates/profiel.html:161 main/templates/profiel.html:172
 msgid "Account verwijderen"
 msgstr "Remove account"
 
@@ -377,27 +792,23 @@ msgstr "Remaining"
 msgid "Ik ga akkoord met de privacyverklaring"
 msgstr "I agree with the privacystatement"
 
+#: main/templates/reset_request.html:6 main/templates/reset_token.html:6
+msgid "Wachtwoord reset"
+msgstr "Reset password"
+
 #: main/templates/vragen.html:7
 msgid "Dagelijkse vragenlijst"
 msgstr "Daily questionnaire"
 
 #: main/templates/vragen.html:9
 msgid "Hier staat elke dag een nieuwe vragenlijst klaar"
-msgstr "A new questionnaire will be available everyday"
+msgstr "Here you can find a new questionnaire every day"
 
 #: main/templates/vragen.html:17
 msgid "Antwoorden versturen"
-msgstr "Send answers"
+msgstr "Send answer"
 
 #: main/templates/vragen.html:22
 msgid "Je hebt de vragenlijst voor vandaag ingevuld"
-msgstr "You already finished the questionnaire today"
-
-#: main/templates/vragen.html:23
-msgid "Kom terug over"
-msgstr "Return in"
-
-#: main/templates/vragen.html:57
-msgid "Terug naar dashboard"
-msgstr "Return to dashboard"
+msgstr "You have completed today's questionnaire"
 

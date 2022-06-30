@@ -50,56 +50,56 @@
                     <div class="col">
                         {% if geslacht == 'man' %}    
                             {% if result > 15 and result < 25 and resultMHR < 1 and resultMHR > 0.95 %}
-                            <p>Gezond BMI & MHR</p>
+                            <p>{{ _('Gezond BMI & MHR') }}</p>
                             {% elif result == -12345678 and resultMHR == -12345678 %}
-                            <p>Je hebt nog geen BMI en MHR uitgerekend</p>
+                            <p>{{ _('Je hebt nog geen BMI en MHR uitgerekend') }}</p>
                             {% elif result < 15 and resultMHR < 1 and resultMHR > 0.95 %}
-                            <p>Je hebt ondergewicht maar je middel heup ratio is gezond!</p>
+                            <p>{{ _('Je hebt ondergewicht maar je middel heup ratio is gezond') }}!</p>
                             {% elif result >= 25 and resultMHR < 1 and resultMHR > 0.95 %}
-                            <p>Je hebt overgewicht maar je middel heup ratio is gezond!</p>
+                            <p>{{ _('Je hebt overgewicht maar je middel heup ratio is gezond') }}!</p>
 
                             {% elif result > 15 and result < 25 and resultMHR >= 1 %}
-                            <p>Gezond BMI maar een te grote middel heup ratio!</p>
+                            <p>{{ _('Gezond BMI maar een te grote middel heup ratio') }}!</p>
                             {% elif result < 15 and resultMHR >= 1 %}
-                            <p>Je hebt ondergewicht en een te grote middel heup ratio!</p>
+                            <p>{{ _('Je hebt ondergewicht en een te grote middel heup ratio') }}!</p>
                             {% elif result >= 25 and resultMHR >= 1 %}
-                            <p>Je hebt overgewicht en een te grote middel heup ratio!</p>
+                            <p>{{ _('Je hebt overgewicht en een te grote middel heup ratio') }}!</p>
 
                             {% elif result > 15 and result < 25 and resultMHR < 0.96 %}
-                            <p>Gezond BMI maar een te kleine middel heup ratio!</p>
+                            <p>{{ _('Gezond BMI maar een te kleine middel heup ratio') }}!</p>
                             {% elif result < 15 and resultMHR < 0.96 %}
-                            <p>Je hebt ondergewicht en een te kleine middel heup ratio!</p>
+                            <p>{{ _('Je hebt ondergewicht en een te kleine middel heup ratio') }}!</p>
                             {% elif result >= 25 and resultMHR < 0.96 %}
-                            <p>Je hebt overgewicht en een te kleine middel heup ratio!</p>
+                            <p>{{ _('Je hebt overgewicht en een te kleine middel heup ratio') }}!</p>
                             {% endif %}
 
                         {% else %}
 
                             {% if result > 15 and result < 25 and resultMHR < 0.86 and resultMHR > 0.80 %}
-                            <p>Gezond BMI & MHR</p>
+                            <p>{{ _('Gezond BMI & MHR') }}</p>
                             {% elif result == -12345678 and resultMHR == -12345678 %}
-                            <p>Je hebt nog geen BMI en MHR uitgerekend</p>
+                            <p>{{ _('Je hebt nog geen BMI en MHR uitgerekend') }}</p>
                             {% elif result < 15 and resultMHR < 0.86 and resultMHR > 0.80 %}
-                            <p>Je hebt ondergewicht maar je middel heup ratio is gezond!</p>
+                            <p>{{ _('Je hebt ondergewicht maar je middel heup ratio is gezond') }}!</p>
                             {% elif result >= 25 and resultMHR < 0.86 and resultMHR > 0.80 %}
-                            <p>Je hebt overgewicht maar je middel heup ratio is gezond!</p>
+                            <p>{{ _('Je hebt overgewicht maar je middel heup ratio is gezond') }}!</p>
 
                             {% elif result > 15 and result < 25 and resultMHR >= 0.86 %}
-                            <p>Gezond BMI maar een te grote middel heup ratio!</p>
+                            <p>{{ _('Gezond BMI maar een te grote middel heup ratio') }}!</p>
                             {% elif result < 15 and resultMHR >= 0.86 %}
-                            <p>Je hebt ondergewicht en een te grote middel heup ratio!</p>
+                            <p>{{ _('Je hebt ondergewicht en een te grote middel heup ratio') }}!</p>
                             {% elif result >= 25 and resultMHR >= 0.86 %}
-                            <p>Je hebt overgewicht en een te grote middel heup ratio!</p>
+                            <p>{{ _('Je hebt overgewicht en een te grote middel heup ratio') }}!</p>
 
                             {% elif result > 15 and result < 25 and resultMHR < 0.81 %}
-                            <p>Gezond BMI maar een te kleine middel heup ratio!</p>
+                            <p>{{ _('Gezond BMI maar een te kleine middel heup ratio') }}!</p>
                             {% elif result < 15 and resultMHR < 0.81 %}
-                            <p>Je hebt ondergewicht en een te kleine middel heup ratio!</p>
+                            <p>{{ _('Je hebt ondergewicht en een te kleine middel heup ratio') }}!</p>
                             {% elif result >= 25 and resultMHR < 0.81 %}
-                            <p>Je hebt overgewicht en een te kleine middel heup ratio!</p>
+                            <p>{{ _('Je hebt overgewicht en een te kleine middel heup ratio') }}!</p>
                             {% endif %}
                         {% endif %}
-                        <p><strong>Tip:</strong></p>
+                        <p><strong>{{ _('Tip') }}:</strong></p>
                         <p>{{tip[0]}}</p></div>
                     </div>
                 </div>

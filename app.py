@@ -27,7 +27,6 @@ def inject_user():
     mededelingen = Mededelingen.query.filter_by(userID=current_user.get_id()).all()
     for x in range(len(mededelingen)):
         mededelinglijst['mededeling'].append(mededelingen[x].mededeling)
-        print(mededelinglijst)
     return dict(mededelinglijst=mededelinglijst)
 
 @babel.localeselector
@@ -803,7 +802,33 @@ def reset_token(token):
             return redirect(url_for('login'))
     return render_template('reset_token.html', title='Reset Password', form=form)
 
+@app.route("/esp_hulp")
+def set_esp():
+    if current_user.is_authenticated:
+        profielfoto = User.query.filter_by(id=current_user.get_id()).first().profiel_foto
+        return render_template('esp.html', user_id=current_user.id, profielfoto=profielfoto)
+    else:
+        return redirect(url_for('login'))
 
+@app.route('/post_data', methods=['POST'])
+def esp_data_post():
+    # post data in a dictionary
+    data = {
+                "temp": float("{:.2f}".format(request.json['temp'])), 
+                "luminance": float("{:.2f}".format(request.json['luminance'])),
+                "id": request.json['id']
+            }
+    
+    # write the data to the database
+    latest = Espdata.query.filter_by(userid=data['id'])
+    latest.delete()
+    db.session.add(Espdata(data['id'], datetime.now(), data['temp'], data['luminance']))
+    db.session.commit()
+    return "done"
+
+@app.errorhandler(404)
+def not_found_error(error):
+    return render_template('404.html')
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0")

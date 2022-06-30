@@ -3,7 +3,7 @@
     <div class="d-sm-flex justify-content-between align-items-center mb-4">
         <h3 class="text-dark mb-0">Dashboard</h3>
         {% if current_user.is_admin() %}
-        <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="getData"><i class="fas fa-download fa-sm text-white-50"></i> Haal gegevens op uit database</a> {% endif %}
+        <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="getData"><i class="fas fa-download fa-sm text-white-50"></i> {{ _('Haal gegevens op uit database') }}</a> {% endif %}
     </div>
     <div class="row">
         <div class="col-md-6 col-xl-3 mb-4">
@@ -57,6 +57,8 @@
             </div>
         </div>
     </div>
+    <div class="col-md-6"><a class="btn btn-primary" href="{{url_for('set_esp')}}" type="button" style="width: auto ;border-radius: 5px;height: 35px;background: rgb(255,102,37);border-color: rgba(255,255,255,0);"><strong> {{ _('ESP Instellen') }}</strong></a></div>
+    <br>
     <div class="row">
         <div class="col-lg-5 col-xl-4">
             <div class="card shadow mb-4">
